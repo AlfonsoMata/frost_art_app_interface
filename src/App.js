@@ -9,12 +9,13 @@ import HomePage from './components/Home';
 import Post from './components/Post';
 import LogIn from './components/LogIn';
 import NavBar2 from './components/NavBar2';
+import Menu from './components/Menu';
 
 //Font Awesome
 import ReactDOM from 'react-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faEllipsisH, faBell, faUser } from '@fortawesome/free-solid-svg-icons'
-library.add(faBars, faEllipsisH, faBell, faUser)
+import { faBars, faEllipsisH, faBell, faUser, faEye, faCompass, faHistory, faFire, faPalette, faBullhorn } from '@fortawesome/free-solid-svg-icons'
+library.add(faBars, faEllipsisH, faBell, faUser, faEye, faCompass, faHistory, faFire, faPalette, faBullhorn)
 //
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         ))} */}
       </div>
       <NavBar2></NavBar2>
+      <Menu></Menu>
       <Link to ="/Home">
       <li>Home</li>
       </Link>
