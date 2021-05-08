@@ -1,17 +1,49 @@
-.PostGrid{
-   display: grid;
-   grid-template-columns: 700px,700px;
-   grid-template-rows: 700px,700px;
-   
+.Body{
+  display: inline;
+   padding-left: 50px;
 }
-
-
 .PostImage {
    
-    width: 50px;
+    width: 500px;
 }
 
-.GridContainer{
-    
-    
+.PostGrid{
+    display: grid;
+    grid-template-rows: 390px  ;
+    grid-template-columns: 730px 130px ;
 }
+
+.ProfileBanner{
+    display: inline-flex;
+    
+ }
+
+.ProfileBanner img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+   
+}
+
+.ProfileBanner button{
+    padding-left: 50px;
+    height: 20px;
+    width:fit-content
+ }
+
+ .CommentBanner{
+    display: inline-flex;
+    padding-left: 50px;
+    height: 20px;
+    width:fit-content
+ }
+
+ .CommentBanner img{
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+   
+}
+
+
+ 
