@@ -5,26 +5,11 @@ import './App.css';
 // import ImageGrid from './components/GridImageComponent';
 import {BrowserRouter as Router,Switch,Route,Link} from 'react-router-dom';
 // import Button from './components/ButtonComponent'
+import HomePage from './components/Home';
+import Post from './components/Post';
+import LogIn from './components/LogIn';
 
 function App() {
-
-  useEffect(()=>{
-    fetchItems();
-  },[]);
-
-  const [items,setItems] = useState([]);
-
-  const fetchItems = async ()=>{
-    const data = await fetch('https://fakestoreapi.com/products?limit=5');
-
-
-
-
-    const items = await data.json();
-    console.log(items);
-    setItems(items);
-    
-  };
 
   return (
     <Router>
@@ -34,7 +19,20 @@ function App() {
           <h1 key ={item.itemid}>{item.name}</h1>
         ))} */}
       </div>
-      <p>Esta es mi App</p>
+      <p>Nav bar provisional
+      </p>
+      <Link to ="/Home">
+      <li>Home</li>
+      </Link>
+      <Link to ="/Login">
+      <li>Login</li>
+      </Link>
+      <Switch>
+        <Route path = "/Home" exact component = {HomePage}/>
+        <Route path = "/Home/:id"  component={Post}/>
+        <Route path = "/Login" component={LogIn}/>
+      </Switch>
+     
       {/* <Link to ="/">
       <li>Home</li>
       </Link>
@@ -65,11 +63,6 @@ function myfunction(){
   
 }
 
-const Home = () =>(
-  <div>
-    <h1>HomePage</h1>
-  </div>
-)
 
 const WolfPicture = () =>(
   <div>

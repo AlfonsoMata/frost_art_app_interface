@@ -1,0 +1,10 @@
+.GridContainer{
+    display: grid;
+    grid-template-rows: 130px 130px 130px;
+    grid-template-columns: 130px 130px 130px;
+}
+
+.ImageContainer img{
+    width: 120px;
+    height: 120px;
+}
