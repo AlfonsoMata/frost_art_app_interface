@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import ImageGrid3x3 from './PostRecomendationGrid'
+import './Post.css'
 
 function Post({ match }) {
     useEffect(()=>{
@@ -19,11 +20,17 @@ function Post({ match }) {
         console.log(item);
     }
     return(
-        <div>
-            <Link to={"/"}>Inicio</Link>
+        <div className ="PostGrid">
+             <Link to={"/"}>Inicio</Link>
+            <div className ="PostGrid">
+           
             <h1>{item.title}</h1>
-            <img src={item.image} ></img>
-            <ImageGrid3x3></ImageGrid3x3>
+          
+            <img className="PostImage" src={item.image} ></img>
+            <ImageGrid3x3 prop="'https://fakestoreapi.com/products?limit=9'"></ImageGrid3x3>
+            </div>
+           
+          
         </div>
     );
 }

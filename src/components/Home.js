@@ -21,7 +21,7 @@ function HomePage() {
     return(
         <div>
             {items.map(item=>(
-            <Link to={`/Home/${item.id}`}><img key={item.id} src={item.image}/></Link>
+            <Link key={item.id} to={`/Post/${item.id}`}><img  src={item.image}/></Link>
             ))}
         </div>
     );

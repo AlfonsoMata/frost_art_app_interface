@@ -1,0 +1,17 @@
+.PostGrid{
+   display: grid;
+   grid-template-columns: 700px,700px;
+   grid-template-rows: 700px,700px;
+   
+}
+
+
+.PostImage {
+   
+    width: 50px;
+}
+
+.GridContainer{
+    
+    
+}

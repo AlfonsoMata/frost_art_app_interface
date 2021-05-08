@@ -1,19 +1,18 @@
 import React , {useState,useEffect} from 'react';
 import './RecomendationGrid.css'
-import {Link} from 'react-router-dom';
+import {Link,Switch} from 'react-router-dom';
 
 
 export const ImageGrid3x3 = (props) => {
     useEffect(()=>{
         fetchItems();
+        console.log(props);
     },[]);
 
     const [items,setItems] = useState([]);
 
     const fetchItems = async () =>{
-        const data = await fetch(
-           'https://fakestoreapi.com/products?limit=9'
-        );
+        const data = await fetch('https://fakestoreapi.com/products?limit=9');
 
         const items = await data.json();
          console.log(items);
@@ -21,11 +20,13 @@ export const ImageGrid3x3 = (props) => {
     };
 
 
+
     return (
         
         <div className="GridContainer" >
+            
                {items.map(item=>(
-            <Link to={`/Home/${item.id}`}><div className ="ImageContainer"><img src ={item.image}></img></div></Link>
+            <Link key={item.id}  to={`/Post/${item.id}`}><div  className ="ImageContainer"><img  src ={item.image} /></div></Link>
             ))}
             {/* <div className ="ImageContainer"><img src ="https://i.pinimg.com/564x/6e/51/99/6e5199ef824f3b2140f4c4e624488e82.jpg"></img></div>
             <div className ="ImageContainer"><img src ="https://i.pinimg.com/564x/fd/1a/20/fd1a20fd80726be2caca865df6121815.jpg"></img></div>
