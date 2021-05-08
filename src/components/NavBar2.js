@@ -12,13 +12,13 @@ export const NavBar2 = (props) => {
     return (
         <div>
             <div>
-            <FontAwesomeIcon icon="bars" />&nbsp;
+            <FontAwesomeIcon size="2x" icon="bars" />&nbsp;
             <img src={process.env.PUBLIC_URL + '/logo1.png'} alt="logo" />&nbsp;
             <img src={process.env.PUBLIC_URL + '/logo2.png'} alt="logo" />&nbsp;
             <input type="text" placeholder="Search"></input>
-            <FontAwesomeIcon icon="ellipsis-h" />&nbsp;
-            <FontAwesomeIcon icon="bell" />&nbsp;
-            <FontAwesomeIcon icon="user" />&nbsp;
+            <FontAwesomeIcon size="2x" icon="ellipsis-h" />&nbsp;
+            <FontAwesomeIcon size="2x" icon="bell" />&nbsp;
+            <FontAwesomeIcon size="2x" icon="user" />&nbsp;
             <label>log in/log out</label>
             </div>
         </div>
