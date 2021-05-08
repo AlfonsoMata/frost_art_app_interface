@@ -8,6 +8,14 @@ import {BrowserRouter as Router,Switch,Route,Link} from 'react-router-dom';
 import HomePage from './components/Home';
 import Post from './components/Post';
 import LogIn from './components/LogIn';
+import NavBar2 from './components/NavBar2';
+
+//Font Awesome
+import ReactDOM from 'react-dom'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBars, faEllipsisH, faBell, faUser } from '@fortawesome/free-solid-svg-icons'
+library.add(faBars, faEllipsisH, faBell, faUser)
+//
 
 function App() {
 
@@ -19,8 +27,7 @@ function App() {
           <h1 key ={item.itemid}>{item.name}</h1>
         ))} */}
       </div>
-      <p>Nav bar provisional
-      </p>
+      <NavBar2></NavBar2>
       <Link to ="/Home">
       <li>Home</li>
       </Link>
