@@ -10,6 +10,12 @@ import Post from './components/Post';
 import LogIn from './components/LogIn';
 import NavBar2 from './components/NavBar2';
 import Menu from './components/Menu';
+import TagView from './components/TagView';
+import NewRelease from './components/NewReleaseView';
+import OfTheDay from './components/OfTheDay';
+import Themes from './components/Themes';
+import ArtistYouFollow from './components/ArtistYouFollow';
+import Popular from './components/Popular';
 
 //Font Awesome
 import ReactDOM from 'react-dom'
@@ -30,16 +36,20 @@ function App() {
       </div>
       <NavBar2></NavBar2>
       <Menu></Menu>
-      <Link to ="/Home">
-      <li>Home</li>
-      </Link>
       <Link to ="/Login">
       <li>Login</li>
       </Link>
+     
       <Switch>
         <Route path = "/Home" exact component = {HomePage}/>
         <Route path = "/Post/:id"  component={Post}/>
         <Route path = "/Login" component={LogIn}/>
+        <Route path = "/Tags" component={TagView}/>
+        <Route path = "/News" component={NewRelease}/>
+        <Route path = "/MostLikeToday" component={OfTheDay}/>
+        <Route path = "/Themes" component={Themes}/>
+        <Route path = "/ArtistYouFollow" component={ArtistYouFollow}/>
+        <Route path = "/Popular" component={Popular}/>
       </Switch>
      
       {/* <Link to ="/">

@@ -1,0 +1,19 @@
+.ImageShow{
+    width: 300px;
+    height: 300px;
+}
+
+.TagImgContainer {
+    position: relative;
+    text-align: center;
+    color: black;
+    font-size: 50px;
+}
+
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

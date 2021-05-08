@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 export const Menu = (props) => {
     const [text, setText] = useState("");
@@ -12,12 +13,28 @@ export const Menu = (props) => {
     return (
         <div>
             <div>
-                <FontAwesomeIcon size="2x" icon="eye" /><br></br>
-                <FontAwesomeIcon size="2x" icon="compass" /><br></br>
-                <FontAwesomeIcon size="2x" icon="history" /><br></br>
-                <FontAwesomeIcon size="2x" icon="fire" /><br></br>
-                <FontAwesomeIcon size="2x" icon="palette" /><br></br>
-                <FontAwesomeIcon size="2x" icon="bullhorn" /><br></br>
+                <Link to="/Tags">
+                    <li>Tags</li>
+                </Link>
+                <Link to="/News">
+                    <FontAwesomeIcon size="2x" icon="bullhorn" /><br></br>
+                </Link>
+                <Link to="/MostLikeToday">
+                    <FontAwesomeIcon size="2x" icon="history" /><br></br>
+                </Link>
+                <Link to="/Themes">
+                    <FontAwesomeIcon size="2x" icon="palette" /><br></br>
+                </Link>
+                <Link to="/ArtistYouFollow">
+                    <FontAwesomeIcon size="2x" icon="eye" /><br></br>
+                </Link>
+
+                <Link to="/Home">
+                    <FontAwesomeIcon size="2x" icon="compass" /><br></br>
+                </Link>
+                <Link to="/Popular">
+                    <FontAwesomeIcon size="2x" icon="fire" /><br></br>
+                </Link>
             </div>
         </div>
     );
