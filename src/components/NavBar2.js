@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState , Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+
 export const NavBar2 = (props) => {
+
     const [text, setText] = useState("");
 
     const handleChange = (event) => {

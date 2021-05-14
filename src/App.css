@@ -1,10 +1,66 @@
 .App {
   text-align: center;
 }
+a{
+  color: #ade8f4;
+}
+a:hover{
+  color: #0f2b36;
+}
+
+
+
+
+@font-face {
+  font-family: 'IceFont';
+src: local("IceMirrorInWinterKei-d99LV"),
+local("IceMirrorInWinterKei-d99LV"),
+url(Ice-Mirror-in-Winter-Kei.ttf.woff);
+}
+
+#PageName{
+  font-family: 'IceFont';
+  color: #ade8f4;
+  font-size: 25px;
+
+}
+
+
+#NavBarLogo{
+  width: 50px;
+}
+.UpperNavBar{
+  list-style-type: none;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #1e4459;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  width: 100%;
+}
+.PrincipalBody{
+  background-color: #102a39;
+}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  background-color: #102a39;
+}
+
+.LateralNavBar {
+  list-style-type: none;
+  margin: 50;
+  padding: 0;
+  width: 3%;
+  padding-top: 3%;
+  background-color: #1e4459;
+  height: 100%; /* Full height */
+  position: fixed; /* Make it stick, even on scroll */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
 }
 
 @media (prefers-reduced-motion: no-preference) {

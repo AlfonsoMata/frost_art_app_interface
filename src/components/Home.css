@@ -1,7 +1,15 @@
 .ImageShow{
-    width: 300px;
-    height: 300px;
+    width: 90%;
+    height: 90%;
 }
+
+@font-face {
+    font-family: 'IceFont';
+  src: local("IceMirrorInWinterKei-d99LV"),
+  local("IceMirrorInWinterKei-d99LV"),
+  url(Ice-Mirror-in-Winter-Kei.ttf.woff);
+  
+  }
 
 .TagImgContainer {
     position: relative;
@@ -10,7 +18,17 @@
     font-size: 50px;
 }
 
+.BodyFalso{
+  
+}
 
+h1{
+    font-family: 'IceFont';
+    border-bottom: 1px solid;
+    border-bottom-color: #ade8f4 ;
+    color: #ade8f4 ;
+   
+  }
 .centered {
     position: absolute;
     top: 50%;

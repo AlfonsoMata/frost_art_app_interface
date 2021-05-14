@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'IceFont';
+  src: local("IceMirrorInWinterKei-d99LV"),
+  local("IceMirrorInWinterKei-d99LV"),
+  url(Ice-Mirror-in-Winter-Kei.ttf.woff);
+  
+  }
+
+  .TextEdit{
+    font-family: 'IceFont';
+    color: #ade8f4;
+   }
+
+
+   
