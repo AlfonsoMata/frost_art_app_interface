@@ -1,0 +1,17 @@
+.BodyPublish{
+    padding-left: 10%;
+    padding-top: 5%;
+    
+}
+
+.BodyPublish form{
+    display:block;
+}
+
+.BodyPublish input[type="Text"]{
+    width: 80%;
+    height: 150px;
+}
+.UploadButton{
+    padding-bottom: 20px;
+}
