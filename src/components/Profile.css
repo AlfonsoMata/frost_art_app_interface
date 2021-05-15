@@ -1,0 +1,29 @@
+.Portada{
+    width: 100%;
+    height: 300px;
+    position: fixed;
+    z-index: 0;
+}
+
+.Avatar{
+    z-index: 5;
+    border-radius: 50%;
+    width: 10%;
+}
+
+.ProfileBody{
+    padding-top: 7%;
+    padding-left: 7%;
+}
+
+.Profile{
+    display:inline-flex
+}
+
+.Profile h2{
+    margin-left: 20px;
+}
+
+.TextPanel{
+    background-color: #1e4459 ;
+}

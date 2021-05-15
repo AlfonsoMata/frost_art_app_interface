@@ -16,6 +16,7 @@ import Themes from './components/Themes';
 import PublicPost from './components/PublisAPost'
 import ArtistYouFollow from './components/ArtistYouFollow';
 import Popular from './components/Popular';
+import Profile from './components/Profile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -126,7 +127,9 @@ function App() {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}>aaaaaaaa</InputBase></div>
-        
+        <Link to ="/Profile">
+          Profile
+        </Link>
         <Link to ="/Login">
         <Button  color="inherit">Login</Button>
       </Link>
@@ -179,6 +182,7 @@ function App() {
         <Route path = "/ArtistYouFollow" component={ArtistYouFollow}/>
         <Route path = "/Popular" component={Popular}/>
         <Route path ='/CreatePost' component={PublicPost}/>
+        <Route path = '/Profile' component ={Profile}/>
       </Switch>
     
    

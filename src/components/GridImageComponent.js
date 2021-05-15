@@ -10,7 +10,7 @@ export const ImageGrid = (props) => {
 
     const breakpoints ={
         default: 3,
-        1100: 2,
+        1000: 2,
         700: 1
     }
 
