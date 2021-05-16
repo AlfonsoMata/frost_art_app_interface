@@ -1,34 +1,48 @@
 import React, {useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
 import './Login.css';
 import FotoLog from './FrostWolfWeb.png'
 import {useSpring,animated} from 'react-spring';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from "@material-ui/core/styles";
+import {Create} from '../api/TemasApi.js';
 
-function LogIn() {
+function LogIn(props) {
     useEffect(()=>{
      
     },[]);
 
+    const [User,SetUser] = useState({
+      id: 0,
+      Nombre: "",
+      Contra:"",
+      Email:"",
+      Descripcion:"Handsome",
+      FechaNacimiento: null,
+      FotoPerfil: null
+    });
+
+    const UserSubmit = async (e) => {
+      e.preventDefault();
+      console.log(User);
+      await Create(User);
+    };
+
     const [SingUpFormStatus, setSingUpStatus] = useState(false);
 
 
-    function registerClicked(){  setSingUpStatus(true)}
-    function loginClicked(){  setSingUpStatus(false)}
+    function registerClicked(){  setSingUpStatus(true)};
+    function loginClicked(){  setSingUpStatus(false)};
 
     const loginProps = useSpring({
         left: SingUpFormStatus ? 530 : 0,
         opacity: SingUpFormStatus ? 0 : 1
 
-    })
+    });
     const registerProps = useSpring({
         left: SingUpFormStatus ? 0 : 930,
         opacity: SingUpFormStatus ? 1 : 0
 
-    })
+    });
 
 
     const useStyles = makeStyles((theme) => ({
@@ -39,6 +53,15 @@ function LogIn() {
         },
       }));
       const classes = useStyles();
+
+      const handleInputChange=(e)=>{
+        const {name,value}= e.target;
+        SetUser({
+          ...User,
+          [name]:value,
+
+        });
+      };
     return(
         <div className="LoginBody">
             <div className="container">
@@ -54,30 +77,30 @@ function LogIn() {
                 </div>
                 <div className ='form-group'>
                     <animated.form action='' id='loginForm' style={loginProps}>
-                    <form id ='loginform'>
+                    <div id ='loginform'>
                     <h2>Log in start sharing your art</h2>
                         <label>User </label>
-                        <input type="text"></input><br/>
+                        <input  type="text"></input><br/>
                         <label>Password </label>
-                        <input type="password"></input><br/>
+                        <input  type="password"></input><br/>
                         <label>Email </label>
                         <input type="email"></input><br/>
                         <input type="submit" className='submit'></input>
-                    </form>
+                    </div>
                     </animated.form>
-                    <animated.form action='' id='registerForm' style={registerProps}>
-                    <form id ='registerform'>
+                    <animated.form action='' id='registerForm' onSubmit={UserSubmit}  style={registerProps}>
+                    <div id ='registerform'>
                         <h2>Sign up Ingrese sus datos</h2>
                         <label>User </label>
-                        <input type="text"></input><br/>
+                        <input name="Nombre" type="text" onChange={handleInputChange} value={User.Nombre}></input><br/>
                         <label>Password </label>
-                        <input type="password"></input><br/>
+                        <input name ="Contra"type="password" onChange={handleInputChange} value={User.Password} ></input><br/>
                         <label>Email </label>
-                        <input type="email"></input><br/>
+                        <input name= "Email"type="email" onChange={handleInputChange} value={User.Email}></input><br/>
                         <label>Fecha de nacimiento </label>
                         <input type="date"></input>
                         <input type="submit" className='submit'></input><br/>
-                    </form>
+                    </div>
                     </animated.form>
                 </div>
                 <div id='forgot-panel'>
@@ -114,10 +137,10 @@ function IntentoGridFoto()
         <div className={classes.root}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-          <img src="https://i.pinimg.com/564x/7b/4f/69/7b4f69da187ead6641a8a50d283760e7.jpg" />
+          <img src="https://i.pinimg.com/564x/7b/4f/69/7b4f69da187ead6641a8a50d283760e7.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" />
           </Grid>
           <Grid item xs={12} sm={6}>
-          <img src="https://i.pinimg.com/564x/7b/4f/69/7b4f69da187ead6641a8a50d283760e7.jpg" />
+          <img src="https://i.pinimg.com/564x/7b/4f/69/7b4f69da187ead6641a8a50d283760e7.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" />
           </Grid>
         </Grid>
       </div>

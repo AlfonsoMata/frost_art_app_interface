@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
+
 import ImageGrid3x3 from './PostRecomendationGrid'
 import './Post.css'
 import Comment from './CommentComponent';

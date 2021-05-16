@@ -109,7 +109,7 @@ input.submit:hover{
     cursor: pointer;
 }
 
-form#registerform{
+div#registerform{
     left: 5px;
     top: -460px;
     position: relative;

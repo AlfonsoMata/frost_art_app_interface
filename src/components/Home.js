@@ -70,7 +70,7 @@ function HomePage() {
                 <GridList cellHeight={350} className={classes.gridList} cols={6}>
                     {items.map(item => (
                         <GridListTile key={item.id} cols={1 || 2}>
-                           <Link key={item.id} to={`/Post/${item.id}`}><img className="ImageShow" src={item.image} /></Link>
+                           <Link key={item.id} to={`/Post/${item.id}`}><img className="ImageShow" src={item.image} alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" /></Link>
                         </GridListTile>
                     ))}
 
@@ -82,7 +82,7 @@ function HomePage() {
                       <GridList className={classes2.gridList} cols={3}>
                        
                           <GridListTile >
-                            <img  src="https://i.pinimg.com/564x/8f/02/c6/8f02c60a33f46d260328983abbfc8429.jpg" />
+                            <img  src="https://i.pinimg.com/564x/8f/02/c6/8f02c60a33f46d260328983abbfc8429.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" />
                             <GridListTileBar
                               title="tags"
                               classes={{
@@ -92,7 +92,7 @@ function HomePage() {
                             />
                           </GridListTile>
                           <GridListTile >
-                            <img src="https://i.pinimg.com/564x/8f/02/c6/8f02c60a33f46d260328983abbfc8429.jpg" />
+                            <img src="https://i.pinimg.com/564x/8f/02/c6/8f02c60a33f46d260328983abbfc8429.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" />
                             <GridListTileBar
                               title="categoria"
                               classes={{
@@ -102,7 +102,7 @@ function HomePage() {
                             />
                           </GridListTile>
                           <GridListTile >
-                            <img src="https://i.pinimg.com/564x/8f/02/c6/8f02c60a33f46d260328983abbfc8429.jpg" />
+                            <img src="https://i.pinimg.com/564x/8f/02/c6/8f02c60a33f46d260328983abbfc8429.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" />
                             <GridListTileBar
                               title="categoria"
                               classes={{
@@ -119,7 +119,7 @@ function HomePage() {
                 <GridList cellHeight={350} className={classes.gridList} cols={6}>
                     {items.map(item => (
                         <GridListTile key={item.id} cols={1 || 2}>
-                           <Link key={item.id} to={`/Post/${item.id}`}><img className="ImageShow" src={item.image} /></Link>
+                           <Link key={item.id} to={`/Post/${item.id}`}><img className="ImageShow" src={item.image} alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" /></Link>
                         </GridListTile>
                     ))}
 
