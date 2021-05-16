@@ -4,7 +4,8 @@ import FotoLog from './FrostWolfWeb.png'
 import {useSpring,animated} from 'react-spring';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from "@material-ui/core/styles";
-import {Create} from '../api/TemasApi.js';
+import {CreateUser} from '../api/UsersApi.js';
+import {LoginUser} from '../api/UsersApi.js';
 
 function LogIn(props) {
     useEffect(()=>{
@@ -21,10 +22,21 @@ function LogIn(props) {
       FotoPerfil: null
     });
 
+    const [UserTry,SetUserTry] = useState({
+      nombre: "",
+      contra: ""
+    });
+
     const UserSubmit = async (e) => {
       e.preventDefault();
       console.log(User);
-      await Create(User);
+      await CreateUser(User);
+    };
+
+    const LogInSubmit = async (e) => {
+      e.preventDefault();
+      //console.log(UserTry);
+      await LoginUser(UserTry.nombre,UserTry.contra);
     };
 
     const [SingUpFormStatus, setSingUpStatus] = useState(false);
@@ -62,6 +74,14 @@ function LogIn(props) {
 
         });
       };
+      const handleInputChange2=(e)=>{
+        const {name,value}= e.target;
+        SetUserTry({
+          ...UserTry,
+          [name]:value,
+
+        });
+      };
     return(
         <div className="LoginBody">
             <div className="container">
@@ -76,15 +96,13 @@ function LogIn(props) {
                     <button id="registerBtn" onClick={registerClicked} className=''>Register</button>
                 </div>
                 <div className ='form-group'>
-                    <animated.form action='' id='loginForm' style={loginProps}>
+                    <animated.form action='' id='loginForm' onSubmit={LogInSubmit} style={loginProps}>
                     <div id ='loginform'>
                     <h2>Log in start sharing your art</h2>
                         <label>User </label>
-                        <input  type="text"></input><br/>
+                        <input name="nombre" onChange={handleInputChange2} value={UserTry.nombre} type="text"></input><br/>
                         <label>Password </label>
-                        <input  type="password"></input><br/>
-                        <label>Email </label>
-                        <input type="email"></input><br/>
+                        <input name="contra" onChange={handleInputChange2} value={UserTry.contra}  type="password"></input><br/>
                         <input type="submit" className='submit'></input>
                     </div>
                     </animated.form>

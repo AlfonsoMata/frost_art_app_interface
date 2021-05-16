@@ -11,12 +11,3 @@ export const GetAll = async ()=>{
     }
 }
 
-export const Create = async (Usuario) =>{
-    try{
-     const response = await axios.post("/Usuarios/CrearUsuario",Usuario)
-     console.log("createUsuario" , response);
-    }catch (error){
-        console.error(error);
-        return error;
-    }
-}
