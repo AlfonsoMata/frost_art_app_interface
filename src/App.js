@@ -26,7 +26,9 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Drawer from '@material-ui/core/Drawer';
-import TemasIndex from './components/TemasTest'
+import TemasIndex from './components/TemasTest';
+import ProfileEdit from './components/EditProfile';
+
 
 
 //Font Awesome
@@ -184,6 +186,7 @@ function App() {
         <Route path ='/CreatePost' component={PublicPost}/>
         <Route path = '/Profile' component ={Profile}/>
         <Route path = '/TemasTest' component={TemasIndex}/>
+        <Route path = '/EditProfile' component={ProfileEdit}/>
       </Switch>
     
    

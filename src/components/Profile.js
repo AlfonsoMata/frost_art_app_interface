@@ -16,6 +16,10 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { GridList, GridListTile,GridListTileBar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import {GetFavPost} from '../api/UsersApi'
+
+
+
 
 
 const menuItems =[
@@ -89,6 +93,8 @@ function Profile ({match}){
 export function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
+  
+
   return (
     <div
       role="tabpanel"
@@ -99,7 +105,7 @@ export function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -129,9 +135,23 @@ const useStyles2 = makeStyles((theme) => ({
 }));
 
 export  function SimpleTabs() {
+
+  const [FavoritePost,setFavPost ] = useState([]);
+
+    useEffect(async()=>{
+    async function fetchData(){
+        const FavRes = await GetFavPost(1);
+        setFavPost(FavRes);
+        console.log(FavRes);
+        console.log(FavoritePost);
+    }
+  
+    fetchData();
+    },[]);
+    
   const classes = useStyles2();
   const classes2 = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -181,11 +201,18 @@ export  function SimpleTabs() {
       <TabPanel value={value} index={2}>
         <div className={classes.root2}>
                 <GridList cellHeight={350} className={classes.gridList} cols={6}>
-                    {menuItems.map(item => (
+
+                {FavoritePost.map((item,index)=>(
+                <div key={index}>{item.id}
+                 <h1>{item.titulo}</h1>
+                </div>
+               
+                  ))}
+                    {/* {menuItems.map(item => (
                         <GridListTile key={item.imageUrl} cols={1 || 2}>
                            <Link key={item.imageUrl} to={`/Post/${1}`}><img className="ImageShow" src={item.imageUrl} /></Link>
                         </GridListTile>
-                    ))}
+                    ))} */}
 
 
                 </GridList>

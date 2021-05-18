@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddComent } from '../api/ComentariosApi.js';
 import { GetComments } from '../api/ComentariosApi.js';
+import {CreateFavorite, DeleteFavorite} from '../api/FavoriteApi.js';
 
 function Post({ match }) {
 
@@ -19,8 +20,9 @@ function Post({ match }) {
       const CommentsRes = await GetComments();
       setComments(CommentsRes);
       console.log(Comments);
+     
     }
-
+    fetchItem();
     fetchData();
   }, []);
 
@@ -59,6 +61,18 @@ function Post({ match }) {
     console.log(item);
   }
 
+  const [FavInformation,SetFavInfo] = useState(
+    {
+      Id:0,
+      IdUsuario:2,
+      IdPublicacion:1
+    }
+  );
+
+  const AddFavorite = async () => {
+    await CreateFavorite(FavInformation);
+  }
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1
@@ -94,8 +108,8 @@ function Post({ match }) {
           <Paper className={classes.paper}>
             <img className="PostImage" src={item.image} ></img>
           </Paper>
-          {/* <img className="PostImage" src={item.image} ></img>
-        <img src="https://i.pinimg.com/564x/d2/d8/96/d2d8963344210762f786cf5acbf5f2de.jpg" /> */}
+                   {/*<img className="PostImage" src={item.image} ></img>
+          <img src="https://i.pinimg.com/564x/d2/d8/96/d2d8963344210762f786cf5acbf5f2de.jpg" /> */}
           <Divider variant="middle" />
           <br></br>
 
@@ -112,8 +126,10 @@ function Post({ match }) {
             <Grid item xs={12} sm={6}>
               <button className="TextEdit"> Follow </button>
               <button className="TextEdit"> Like </button>
+              <button className="TextEdit" onClick ={AddFavorite}> Favorite </button>
 
             </Grid>
+          
             <div className="TagSection">
               <h2 className="TextEdit">Tags :</h2>
               <button>Arte</button>
