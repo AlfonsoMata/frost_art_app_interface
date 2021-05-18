@@ -9,6 +9,8 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddComent } from '../api/ComentariosApi.js';
 import { GetComments } from '../api/ComentariosApi.js';
+import { DelComments } from '../api/ComentariosApi.js';
+import { AddLike } from '../api/LikesApi.js';
 import {CreateFavorite, DeleteFavorite} from '../api/FavoriteApi.js';
 
 function Post({ match }) {
@@ -17,7 +19,7 @@ function Post({ match }) {
 
   useEffect(async () => {
     async function fetchData() {
-      const CommentsRes = await GetComments();
+      const CommentsRes = await GetComments(1);
       setComments(CommentsRes);
       console.log(Comments);
      
@@ -35,6 +37,11 @@ function Post({ match }) {
     Activo: true
   });
 
+  const [Like, SetLike] = useState({
+    IdUsuario: 1,
+    IdPublicacion: 1
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     SetComment({
@@ -50,15 +57,18 @@ function Post({ match }) {
     await AddComent(Comentario);
   };
 
-  const [item, setItem] = useState({
+  const darLike = async (e) => {
+    await AddLike(Like);
+  }
+
+  const [cosa, setItem] = useState({
     images: {}
   });
 
   const fetchItem = async () => {
     const fetchItem = await fetch(`https://fakestoreapi.com/products/${match.params.id}`);
-    const item = await fetchItem.json();
-    setItem(item);
-    console.log(item);
+    const cosa = await fetchItem.json();
+    setItem(cosa);
   }
 
   const [FavInformation,SetFavInfo] = useState(
@@ -106,7 +116,7 @@ function Post({ match }) {
 
         <Grid item xs={12} sm={8}>
           <Paper className={classes.paper}>
-            <img className="PostImage" src={item.image} ></img>
+            <img className="PostImage" src={cosa.image} ></img>
           </Paper>
                    {/*<img className="PostImage" src={item.image} ></img>
           <img src="https://i.pinimg.com/564x/d2/d8/96/d2d8963344210762f786cf5acbf5f2de.jpg" /> */}
@@ -125,7 +135,7 @@ function Post({ match }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <button className="TextEdit"> Follow </button>
-              <button className="TextEdit"> Like </button>
+              <button className="TextEdit" onClick={darLike}> Like </button>
               <button className="TextEdit" onClick ={AddFavorite}> Favorite </button>
 
             </Grid>
@@ -164,7 +174,7 @@ function Post({ match }) {
           </div>
 
         ))}
-      </div>)
+      </div>
       <div className="MadeComent">
         <form id="addCommentForm" onSubmit={UserSubmit}>
           <input name="Texto" type="text" onChange={handleInputChange}></input>
