@@ -1,9 +1,10 @@
-import React,{useState,useEffect,Fragment} from 'react';
+import React,{useState,useEffect} from 'react';
 import './PublishPost.css';
 import {GetAll} from '../api/TemasApi';
 import {CreatePost} from '../api/PublicacionApi';
-
+ 
 const PublicPost = ()=>{
+
 
     const [Post,SetPost] = useState({
         Id: 0,
@@ -42,6 +43,8 @@ const PublicPost = ()=>{
         });
       };
 
+  
+  
 
     return(
         <div className="BodyPublish">
@@ -49,7 +52,8 @@ const PublicPost = ()=>{
                 <h2> add a title</h2>
                 <input type="Text" name="Titulo" onChange={handleInputChange} value={Post.Titulo}></input>
                 <h2>Upload your art</h2>
-                <button className="UploadButton">Select Picture</button><br></br>
+                
+    
                 <h2>Add a description</h2>
                 <textarea name="Descripcion" onChange={handleInputChange} value={Post.Descripcion} rows="5" cols="80"></textarea>
                 {/* <h2>Add less than 20 Tags</h2>

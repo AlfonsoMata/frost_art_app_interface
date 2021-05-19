@@ -28,6 +28,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Drawer from '@material-ui/core/Drawer';
 import TemasIndex from './components/TemasTest';
 import ProfileEdit from './components/EditProfile';
+import UploadPictureTest from './components/PictureTest';
 
 
 
@@ -187,6 +188,7 @@ function App() {
         <Route path = '/Profile' component ={Profile}/>
         <Route path = '/TemasTest' component={TemasIndex}/>
         <Route path = '/EditProfile' component={ProfileEdit}/>
+        <Route path = '/PictureTest' component={UploadPictureTest}/>
       </Switch>
     
    
