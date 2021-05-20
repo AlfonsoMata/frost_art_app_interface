@@ -3,23 +3,31 @@ import {GetProfile} from '../api/UsersApi';
 
 const ProfileEdit = (props) =>{
     const [Profile,setProfile] = useState([]);
+    const [Nombre, setNombre] = useState("");
+    const [Foto, setFoto] = useState("");
+    const [Descripcion,setDescripcion] = useState("");
 
     useEffect(async()=>{
        async function fetchData(){
-            //const ProfileRest = await GetProfile(1);
-            //setProfile(ProfileRest);
-            //console.log(Profile);
+            const ProfileRest = await GetProfile(3);
+            setProfile(ProfileRest);
+            setFoto(ProfileRest.fotoPerfil);
+            setNombre(ProfileRest.nombre);
+            setDescripcion(ProfileRest.descripcion)
+            console.log(ProfileRest);
         }
 
         fetchData();
     },[]);
 
     return (
-        <div className="BodyTemaTest">
+        <div>
             <form>
-                <input type="Text"></input>
+            <input type="Text" defaultValue={Nombre} ></input>
+            <textarea defaultValue={Descripcion}></textarea>
+            <img src={Foto}></img>
             </form>
-        <img src="https://i.pinimg.com/564x/b9/90/07/b990071d0a6e00153a66201e16b0a678.jpg"/>
+       
         </div>
     )
 }

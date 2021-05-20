@@ -4,6 +4,14 @@
     
 }
 
+@font-face {
+    font-family: 'IceFont';
+  src: local("IceMirrorInWinterKei-d99LV"),
+  local("IceMirrorInWinterKei-d99LV"),
+  url(Ice-Mirror-in-Winter-Kei.ttf.woff);
+  
+  }
+
 .BodyPublish form{
     display:block;
 }
@@ -13,4 +21,25 @@
 }
 .UploadButton{
     padding-bottom: 20px;
+}
+
+.EditText{
+    font-family: 'IceFont';
+    color: #ade8f4;
+}
+
+
+
+.TextTitleInput{
+    background-color: #071e26;
+    color: #ade8f4;
+    border-radius: 5%;
+    font-size: 24px;
+    border-style: none;
+    
+}
+
+
+.PictureProgress{
+    width: 500px;
 }

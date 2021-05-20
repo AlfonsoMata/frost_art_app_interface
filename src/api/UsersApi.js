@@ -19,7 +19,14 @@ export const LoginUser = async(nombre,contra) =>{
         const response = await axios.post(`/Usuarios/LogIn`,nombre,{params: {nombre,contra}})
         //const response = await axios.post("/Usuarios/LogIn?nombre=Sebastian&contra=WinterSoldier")
         //console.log(response);
-        console.log(response);
+        console.log(response.data[0].id);
+        const AutoMe = {
+            IdUsuario: response.data[0].id,
+            IdUsuarioSeguido:  response.data[0].id,
+        }
+
+        const response2 = await axios.post(`/UsuariosSeguidos/CreateUsuarioSeguido`,AutoMe)
+
        
     }catch (error){
         console.error(error);
@@ -41,8 +48,7 @@ export const GetFavPost = async(UserId) =>{
 export const GetProfile = async (UserId) =>{
     try{
         const response = await axios.get('/Usuarios/GetUsuarioPerfil/'+UserId)
-        console.log(response);
-        //return(response.data);
+        return response.data;
     }catch(error){
         console.error(error);
         return error;
