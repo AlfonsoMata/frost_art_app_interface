@@ -44,6 +44,17 @@ export const GetPost = async (IdPost)=>{
     }
 }
 
+export const GetPostByTheme = async (Id) =>{
+    try{
+        const response = await axios.get("/Publicaciones/GetPublicacionTema/"+Id)
+        console.log("Post por temas: ",response.data);
+        return response.data
+    } catch (error){
+        console.error(error);
+        return error;
+    }
+}
+
 
 
 // export const GetPost = async (PostInfo) =>{

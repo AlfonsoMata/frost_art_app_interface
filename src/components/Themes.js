@@ -85,7 +85,7 @@ function Themes() {
         <GridList cellHeight={350} className={classes.gridList} cols={6}>
           {Temas.map(item => (
             <GridListTile key={item.id} cols={1 || 2}>
-              <Link key={item.id} to={`/Post/${item.id}`}><img className="ImageShow" src="https://i.pinimg.com/564x/a7/4b/82/a74b8228e4ef5f9e0f624b1398798662.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" /></Link>
+              <Link key={item.id} to={`/ThemePage/${item.id}`}><img className="ImageShow" src="https://i.pinimg.com/564x/a7/4b/82/a74b8228e4ef5f9e0f624b1398798662.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" /></Link>
               <GridListTileBar
                 title={item.nombre}
                 classes2={{

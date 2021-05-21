@@ -32,6 +32,7 @@ import Drawer from '@material-ui/core/Drawer';
 import TemasIndex from './components/TemasTest';
 import ProfileEdit from './components/EditProfile';
 import UploadPictureTest from './components/PictureTest';
+import ThemePage from './components/ThemePage';
 
 
 
@@ -202,6 +203,7 @@ function App() {
           <Route path='/TemasTest' component={TemasIndex} />
           <Route path='/EditProfile' component={ProfileEdit} />
           <Route path='/PictureTest' component={UploadPictureTest} />
+          <Route path='/ThemePage/:id' component={ThemePage} />
         </Switch>
 
 

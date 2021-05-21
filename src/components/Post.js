@@ -27,7 +27,7 @@ function Post({ match }) {
 
   useEffect(async () => {
     async function fetchData() {
-      const CommentsRes = await GetComments(1);
+      const CommentsRes = await GetComments(match.params.id);
       const infoRest = await GetPost(match.params.id);
       console.log(match);
       setTitulo(infoRest[0].titulo);
