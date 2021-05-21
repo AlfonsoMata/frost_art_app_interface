@@ -111,7 +111,7 @@ const PublicPost = () => {
 
  const UploadFotoTemp = async (e) =>{
   e.preventDefault();
-  await AddImage(picture,0,5);
+  await AddImage(picture,0,2);
  }
 
 

@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import {GetFavPost} from '../api/UsersApi'
 import ImageView from './ImageView';
 import {GetUserPosts} from '../api/PublicacionApi';
+import Cookies from 'js-cookie';
 
 
 
@@ -34,6 +35,7 @@ const menuItems =[
     idPublicacion: "2"
   },
 ]
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,12 +64,21 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile ({match}){
     const classes = useStyles();
+    const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
+   
+    useEffect(async()=>{
+      async function fetchData(){
+        console.log('Cosas',ProfileUser.data[0]);
+      }
+    
+      fetchData();
+      },[]);
 
     return(
         <div className="ProfileBody" >
           <div className="Profile">
-          <Avatar className={classes.large} src="https://i.pinimg.com/564x/c8/58/ad/c858ad665a8ceceaafe22d58690fce1e.jpg"></Avatar>
-          <h2>Sebastian Stan</h2>
+          <Avatar className={classes.large} src={ProfileUser.data[0].fotoPerfil}></Avatar>
+          <h2>{ProfileUser.data[0].nombre}</h2>
           </div>
           <SimpleTabs></SimpleTabs>
           {/* <div className={classes.root2}>
@@ -134,6 +145,8 @@ export  function SimpleTabs() {
 
   const [FavoritePost,setFavPost ] = useState([]);
   const [myPosts,setMyPosts] = useState([]);
+  const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
+  
 
     useEffect(async()=>{
     async function fetchData(){
@@ -141,8 +154,10 @@ export  function SimpleTabs() {
         const myPostRest = await GetUserPosts(1);
         setFavPost(FavRes);
         setMyPosts(myPostRest);
-        console.log('misPost',myPosts.map);
+        console.log('misPost',myPostRest);
         console.log('FavoritePost',FavoritePost);
+
+
     }
   
     fetchData();
@@ -163,9 +178,8 @@ export  function SimpleTabs() {
           <Tab label="Home" {...a11yProps(0)} />
           <Tab label="Gallery" {...a11yProps(1)} />
           <Tab label="Favorites" {...a11yProps(2)} />
-          <Tab label="Posts" {...a11yProps(3)} />
-          <Tab label="About" {...a11yProps(4)} />
-          <Tab label="Stats" {...a11yProps(5)} />
+          <Tab label="About" {...a11yProps(3)} />
+          <Tab label="Stats" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -178,7 +192,8 @@ export  function SimpleTabs() {
         <Grid item xs={12} sm={8}>
          <h2>About Me</h2>
          <div className="TextPanel" >
-           <h2>Birthday y cosas</h2>
+           <h2>{ProfileUser.data[0].descripcion}</h2><br></br>
+           <h2>My birthday: {ProfileUser.data[0].fechaNacimiento}</h2>
          </div>
         </Grid>
       </Grid>
@@ -203,9 +218,9 @@ export  function SimpleTabs() {
                 <GridList cellHeight={350} className={classes.gridList} cols={6}>
 
                 {FavoritePost.map((item,index)=>(
-                <div key={index}>{item.id}
-                 <h1>{item.titulo}</h1>
-                </div>
+                <GridListTile key={item.idpublicacion} cols={1 || 2}>
+                <Link key={item.idpublicacion} to={`/Post/${item.idpublicacion}`}><ImageView  props={item.idpublicacion}></ImageView></Link>
+             </GridListTile>
                
                   ))}
                     {/* {menuItems.map(item => (
@@ -219,25 +234,13 @@ export  function SimpleTabs() {
             </div>
       </TabPanel>
       <TabPanel value={value} index={3}>
-      <div className={classes.root2}>
-                <GridList cellHeight={350} className={classes.gridList} cols={6}>
-                    {menuItems.map(item => (
-                        <GridListTile key={item.imageUrl} cols={1 || 2}>
-                           <Link key={item.imageUrl} to={`/Post/${1}`}><img className="ImageShow" src={item.imageUrl} /></Link>
-                        </GridListTile>
-                    ))}
-
-
-                </GridList>
-            </div>
-      </TabPanel>
-      <TabPanel value={value} index={4}>
       <h2>about </h2>
       <div className="TextPanel" >
-           <h2>Birthday y cosas</h2>
+      <h2>{ProfileUser.data[0].descripcion}</h2><br></br>
+           <h2>My birthday: {ProfileUser.data[0].fechaNacimiento}</h2>
          </div>
       </TabPanel>
-      <TabPanel value={value} index={5}>
+      <TabPanel value={value} index={4}>
       <div className={classes.root2}>
                 <GridList cellHeight={350} className={classes.gridList} cols={6}>
                     {menuItems.map(item => (

@@ -1,29 +1,97 @@
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Cookies from 'js-cookie';
+import firebase from './FireBase';
+import {UpdateProfile} from '../api/UsersApi';
+import './EditProfile.css';
+import Profile from './Profile';
 
 const ProfileEdit = (props) => {
-    const [userId, setUserId] = useState([]);
-    const [userName, setUserName] = useState([]);
-    useEffect(async () => {
 
+   
+    useEffect(async () => {
+     
         async function fetchData() {
-            var json_string = Cookies.get('userInfo');
-            var array = JSON.parse(json_string);
-            setUserId(array.data[0].id);
-            setUserName(array.data[0].nombre);
+            
+        
             //console.log("Cookie chida: " + array.data[0].nombre);
         }
         fetchData();
 
     }, []);
+    const [userId, setUserId] = useState([]);
+    const [userName, setUserName] = useState([]);
+    const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
+    const [uploadValue, SetUploadValue] = useState(0);
+    const [errorMesage, SetUpErrorMesage] = useState("");
+  
+   
+    const [NewInfoProfile,SetNewInfoProfile]=useState({
+        id:ProfileUser.data[0].id,
+        Nombre:ProfileUser.data[0].nombre,
+        Contra:ProfileUser.data[0].contra,
+        Email: ProfileUser.data[0].email,
+        Descripcion: ProfileUser.data[0].descripcion,
+        fechaNacimiento:ProfileUser.data[0].fechaNacimiento,
+        fotoPerfil: "cambiame"
+    })
+
+    const [picture, SetUpPicture] = useState(ProfileUser.data[0].fotoPerfil);
+
+    const handleOnChange = (e) => {
+      const file = e.target.files[0]
+      const storageRef = firebase.storage().ref(`pictures/${file.name}`) // aqui lo que hace es que sube la foto
+      const task = storageRef.put(file) // la guarda como en un storage local idk
+  
+      task.on('state_changed', (snapshot) => {
+        let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        SetUploadValue(percentage)
+      }, (error) => {
+        SetUpErrorMesage(`Ah ocurrido un error${error.message}`);
+        //message: `Ha ocurrido un error: `
+      }, async () => {
+        SetUpErrorMesage("archivoSubido");
+        SetUpPicture(await task.snapshot.ref.getDownloadURL()) // y aqui me lo devuelve aja entonces eso es lo que tengo que guardar en la base de datos 
+      })
+    }
+
+    const PostSubmit = async (e) => {
+        e.preventDefault();
+        console.log(NewInfoProfile);
+        await UpdateProfile(NewInfoProfile,ProfileUser.data[0].id,picture);
+     
+      };
+
+      const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        SetNewInfoProfile({
+          ...NewInfoProfile,
+          [name]: value,
+    
+        });
+      };
+
+   
 
     return (
-        <div>
-            <form>
-                <img src="data:image/jpeg;base64,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"></img>
-                <input type="Text" defaultValue={userId} ></input>
-                <textarea defaultValue={userName}></textarea>
+        <div className="EditBody">
+            <form onSubmit={PostSubmit}>
+                <h2>Foto de Perfil</h2>
+                <img className="EditFoto" src={picture}></img>
+                <progress className="PictureProgress" value={uploadValue} max='100'></progress>
+                <input type='file' name="PhotoSelector" onChange={handleOnChange.bind(this)} />
+                <input type="Hiden" name="fotoPerfil" onChange={handleInputChange} value={NewInfoProfile.fotoPerfil}/>
+                {errorMesage}
+                <input type="submit" value="uploadFoto"></input>
+                <h2>Nombre de usuario</h2>
+                <input type="Text" name="Nombre"  onChange={handleInputChange} value={NewInfoProfile.Nombre} defaultValue={ProfileUser.data[0].nombre} ></input>
+                <h2>Contra</h2>
+                <input type="Password" name="Contra"  onChange={handleInputChange} value={NewInfoProfile.Contra} defaultValue={ProfileUser.data[0].contra} ></input>
+                <h2>Email</h2>
+                <input type="Email" name ="Email" onChange={handleInputChange} value={NewInfoProfile.Email} defaultValue={ProfileUser.data[0].email} ></input>
+                <h2>Descripcion</h2>
+                <textarea name="Descripcion" onChange={handleInputChange} value={NewInfoProfile.Descripcion} defaultValue={ProfileUser.data[0].descripcion}></textarea>
+                <h2></h2>
             </form>
 
         </div>

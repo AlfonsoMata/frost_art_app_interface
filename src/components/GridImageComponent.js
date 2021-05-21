@@ -2,9 +2,6 @@ import React , {useState} from 'react';
 import Masonry from 'react-masonry-css';
 import "./GridImageComponent.css";
 
-
-
-
 export const ImageGrid = (props) => {
     const [text, setText] = useState("");
 

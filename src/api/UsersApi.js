@@ -10,8 +10,6 @@ export const CreateUser = async (Usuario) => {
     }
 }
 
-
-
 export const LoginUser = async (nombre, contra) => {
 
     try {
@@ -52,6 +50,27 @@ export const GetProfile = async (UserId) => {
         const response = await axios.get('/Usuarios/GetUsuarioPerfil/' + UserId)
         return response.data;
     } catch (error) {
+        console.error(error);
+        return error;
+    }
+}
+
+export const UpdateProfile = async (NewInfo,Id,Urlvideo)=>{
+    try{
+        console.log('info que llego',NewInfo);
+        const InfoWithURl ={
+            id:Id,
+            nombre: NewInfo.Nombre,
+            contra: NewInfo.Contra,
+            email: NewInfo.Email,
+            descripcion: NewInfo.Descripcion,
+            fechaNacimiento: NewInfo.fechaNacimiento,
+            fotoPerfil:NewInfo.fotoPerfil
+        }
+        console.log('info a enviar',InfoWithURl);
+        const response = await axios.put('/Usuarios/ActualizarUsuario/'+Id,InfoWithURl)
+        //console.log(response);
+    } catch (error){
         console.error(error);
         return error;
     }

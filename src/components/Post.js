@@ -29,6 +29,7 @@ function Post({ match }) {
     async function fetchData() {
       const CommentsRes = await GetComments(1);
       const infoRest = await GetPost(match.params.id);
+      console.log(match);
       setTitulo(infoRest[0].titulo);
       setDescripcion(infoRest[0].descripcion);
       setNombreUsuario(infoRest[0].nombreUsuario);
