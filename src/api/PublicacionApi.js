@@ -22,6 +22,28 @@ export const CreateTags = async (Tags) =>{
     }
 }
 
+export const GetUserPosts = async (IdUsuario)=>{
+    try{
+        const response = await axios.get("/Publicaciones/GetPublicacionUsuario/"+IdUsuario)
+        console.log("ayuda",response.data);
+        return response.data
+    } catch (error){
+        console.error(error);
+        return error;
+    }
+}
+
+export const GetPost = async (IdPost)=>{
+    try{
+        const response = await axios.get("/Publicaciones/GetPublicacionId/"+IdPost)
+        console.log("PostInfo",response.data);
+        return response.data
+    } catch (error){
+        console.error(error);
+        return error;
+    }
+}
+
 
 
 // export const GetPost = async (PostInfo) =>{

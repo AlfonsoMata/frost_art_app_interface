@@ -1,14 +1,14 @@
 import React,{useEffect,useState} from 'react';
-import {GetProfile} from '../api/UsersApi';
+import {GetProfile} from '../api/UsersApi'; 
 
 const ProfileEdit = (props) =>{
-    const [Profile,setProfile] = useState([]);
+    const [Profile,setProfile] = useState([]);  
     const [Nombre, setNombre] = useState("");
     const [Foto, setFoto] = useState("");
     const [Descripcion,setDescripcion] = useState("");
 
     useEffect(async()=>{
-       async function fetchData(){
+       async function fetchData(){ 
             const ProfileRest = await GetProfile(3);
             setProfile(ProfileRest);
             setFoto(ProfileRest.fotoPerfil);
@@ -16,7 +16,6 @@ const ProfileEdit = (props) =>{
             setDescripcion(ProfileRest.descripcion)
             console.log(ProfileRest);
         }
-
         fetchData();
     },[]);
 

@@ -14,12 +14,10 @@ export const CreateUser = async (Usuario) =>{
 
 export const LoginUser = async(nombre,contra) =>{
     try{
-        console.log({nombre});
-        console.log(contra);
         const response = await axios.post(`/Usuarios/LogIn`,nombre,{params: {nombre,contra}})
         //const response = await axios.post("/Usuarios/LogIn?nombre=Sebastian&contra=WinterSoldier")
         //console.log(response);
-        console.log(response.data[0].id);
+        console.log(response.data);
         const AutoMe = {
             IdUsuario: response.data[0].id,
             IdUsuarioSeguido:  response.data[0].id,
@@ -44,6 +42,8 @@ export const GetFavPost = async(UserId) =>{
         return error;
     }
 }
+
+
 
 export const GetProfile = async (UserId) =>{
     try{

@@ -17,6 +17,8 @@ import Grid from '@material-ui/core/Grid';
 import { GridList, GridListTile,GridListTileBar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {GetFavPost} from '../api/UsersApi'
+import ImageView from './ImageView';
+import {GetUserPosts} from '../api/PublicacionApi';
 
 
 
@@ -24,19 +26,13 @@ import {GetFavPost} from '../api/UsersApi'
 
 const menuItems =[
   {
-    imageUrl: 'https://i.pinimg.com/236x/72/5e/8e/725e8e4011ad49f186056e7a9b32052b.jpg'
+    imageUrl: 'https://i.pinimg.com/236x/72/5e/8e/725e8e4011ad49f186056e7a9b32052b.jpg',
+    idPublicacion: "1"
   },
   {
-    imageUrl: 'https://i.pinimg.com/564x/28/03/48/2803487d579ac0a2c9fbe1f1d9f0a594.jpg'
+    imageUrl: 'https://i.pinimg.com/236x/72/5e/8e/725e8e4011ad49f186056e7a9b32052b.jpg',
+    idPublicacion: "2"
   },
-  {
-    imageUrl: 'https://i.pinimg.com/564x/33/b8/38/33b83873dcaa3f32eb22e48dfe08a59a.jpg'
-  },
-  {
-    imageUrl: 'https://i.pinimg.com/564x/e7/62/34/e76234d6f9dc274ce84942f8eac94ea6.jpg'
-  }
-  
-
 ]
 
 
@@ -137,13 +133,16 @@ const useStyles2 = makeStyles((theme) => ({
 export  function SimpleTabs() {
 
   const [FavoritePost,setFavPost ] = useState([]);
+  const [myPosts,setMyPosts] = useState([]);
 
     useEffect(async()=>{
     async function fetchData(){
         const FavRes = await GetFavPost(1);
+        const myPostRest = await GetUserPosts(1);
         setFavPost(FavRes);
-        console.log(FavRes);
-        console.log(FavoritePost);
+        setMyPosts(myPostRest);
+        console.log('misPost',myPosts.map);
+        console.log('FavoritePost',FavoritePost);
     }
   
     fetchData();
@@ -188,11 +187,12 @@ export  function SimpleTabs() {
       <TabPanel value={value} index={1}>
       <div className={classes.root2}>
                 <GridList cellHeight={350} className={classes.gridList} cols={6}>
-                    {menuItems.map(item => (
-                        <GridListTile key={item.imageUrl} cols={1 || 2}>
-                           <Link key={item.imageUrl} to={`/Post/${1}`}><img className="ImageShow" src={item.imageUrl} /></Link>
+                {myPosts.map((Post,index) => (
+                        <GridListTile key={Post.idPublicacion} cols={1 || 2}>
+                           <Link key={Post.idPublicacion} to={`/Post/${Post.idPublicacion}`}><ImageView  props={Post.idPublicacion}></ImageView></Link>
                         </GridListTile>
                     ))}
+
 
 
                 </GridList>

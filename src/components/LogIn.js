@@ -18,7 +18,7 @@ function LogIn(props) {
       Contra:"",
       Email:"",
       Descripcion:"Handsome",
-      FechaNacimiento: "2019-01-06",
+      FechaNacimiento: "2019-01-06", 
       FotoPerfil: "https://firebasestorage.googleapis.com/v0/b/frostarttesta.appspot.com/o/pictures%2FDefaultProfilePicture.png?alt=media&token=6215b450-9c4c-4a49-a9ca-6acb3582228a"
     });
 

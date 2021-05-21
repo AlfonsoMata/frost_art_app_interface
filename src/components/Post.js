@@ -10,18 +10,31 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AddComent } from '../api/ComentariosApi.js';
 import { GetComments } from '../api/ComentariosApi.js';
 import { DelComments } from '../api/ComentariosApi.js';
+import { GetPost} from '../api/PublicacionApi';
 import { AddLike } from '../api/LikesApi.js';
+import Box from '@material-ui/core/Box';
 import {CreateFavorite, DeleteFavorite} from '../api/FavoriteApi.js';
+import ImageView from './ImageView';
+import { positions } from 'react-alert';
 
 function Post({ match }) {
 
   const [Comments, setComments] = useState([]);
+  const [Titulo,setTitulo]=useState("");
+  const [Descripcion,setDescripcion]=useState("");
+  const [NombreUsuario,setNombreUsuario]=useState("");
+  const [PictureProfile,setPictureProfile]=useState("");
 
   useEffect(async () => {
     async function fetchData() {
       const CommentsRes = await GetComments(1);
+      const infoRest = await GetPost(match.params.id);
+      setTitulo(infoRest[0].titulo);
+      setDescripcion(infoRest[0].descripcion);
+      setNombreUsuario(infoRest[0].nombreUsuario);
+      setPictureProfile(infoRest[0].fotoPerfil);
+      
       setComments(CommentsRes);
-      console.log(Comments);
      
     }
     fetchItem();
@@ -87,9 +100,14 @@ function Post({ match }) {
     root: {
       flexGrow: 1
     },
+    box:{
+      width: "500px",
+      paddingLeft: "30%"
+    },
     paper: {
       padding: theme.spacing(2),
       textAlign: "center",
+      justifyContent: "center",
       background: 'rgb(2,0,36)',
       background: 'linear-gradient(69deg, rgba(2,0,36,1) 0%, rgba(25,69,89,1) 50%, rgba(39,92,121,1) 100%)'
     },
@@ -116,7 +134,9 @@ function Post({ match }) {
 
         <Grid item xs={12} sm={8}>
           <Paper className={classes.paper}>
-            <img className="PostImage" src={cosa.image} ></img>
+            <Box className={classes.box}>
+            <ImageView props={match.params.id}></ImageView>
+            </Box>
           </Paper>
                    {/*<img className="PostImage" src={item.image} ></img>
           <img src="https://i.pinimg.com/564x/d2/d8/96/d2d8963344210762f786cf5acbf5f2de.jpg" /> */}
@@ -126,11 +146,11 @@ function Post({ match }) {
           <Grid container spacing={3} className={classes.ProfileGrid}>
 
             <Grid item xs={12} sm={2}>
-              <img id="profilePicture" src="https://i.pinimg.com/564x/e9/24/83/e9248337a185fad3284b43c20e385b03.jpg" />
+              <img id="profilePicture" src={PictureProfile} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <h2 className="TextEdit" >Crowley</h2>
-              <h2 className="TextEdit">Arte bien chido apoco no</h2>
+              <h2 className="TextEdit" >{Titulo}</h2>
+              <h2 className="TextEdit">{Descripcion}</h2>
 
             </Grid>
             <Grid item xs={12} sm={6}>
