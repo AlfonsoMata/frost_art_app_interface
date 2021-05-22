@@ -10,52 +10,40 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AddComent } from '../api/ComentariosApi.js';
 import { GetComments } from '../api/ComentariosApi.js';
 import { DelComments } from '../api/ComentariosApi.js';
-import { GetPost} from '../api/PublicacionApi';
+import { GetPost } from '../api/PublicacionApi';
 import { AddLike } from '../api/LikesApi.js';
 import Box from '@material-ui/core/Box';
-import {CreateFavorite, DeleteFavorite} from '../api/FavoriteApi.js';
+import { CreateFavorite, DeleteFavorite } from '../api/FavoriteApi.js';
 import ImageView from './ImageView';
 import { positions } from 'react-alert';
+import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 function Post({ match }) {
 
   const [Comments, setComments] = useState([]);
-  const [Titulo,setTitulo]=useState("");
-  const [Descripcion,setDescripcion]=useState("");
-  const [NombreUsuario,setNombreUsuario]=useState("");
-  const [PictureProfile,setPictureProfile]=useState("");
+  const [Tags, setTags] = useState([]);
+  const [Titulo, setTitulo] = useState("");
+  const [Descripcion, setDescripcion] = useState("");
+  const [NombreUsuario, setNombreUsuario] = useState("");
+  const [PictureProfile, setPictureProfile] = useState("");
 
   useEffect(async () => {
     async function fetchData() {
       const CommentsRes = await GetComments(match.params.id);
       const infoRest = await GetPost(match.params.id);
-      console.log(match);
+      setTags(infoRest[0].etiquetas);
       setTitulo(infoRest[0].titulo);
       setDescripcion(infoRest[0].descripcion);
       setNombreUsuario(infoRest[0].nombreUsuario);
       setPictureProfile(infoRest[0].fotoPerfil);
-      
+
       setComments(CommentsRes);
-     
+      console.log("Info"+infoRest[0]);
     }
     fetchItem();
     fetchData();
   }, []);
-
-  const [Comentario, SetComment] = useState({
-    Id: 0,
-    IdUsuario: 1,
-    IdPublicacion: 1,
-    Texto: "",
-    Fecha: "2019-01-06T17:16:40",
-    Activo: true
-  });
-
-  const [Like, SetLike] = useState({
-    IdUsuario: 1,
-    IdPublicacion: 1
-  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,7 +56,7 @@ function Post({ match }) {
 
   const UserSubmit = async (e) => {
     e.preventDefault();
-    console.log("Comentarios: "+Comentario);
+    console.log("Comentarios: " + Comentario);
     await AddComent(Comentario);
   };
 
@@ -80,7 +68,7 @@ function Post({ match }) {
     images: {}
   });
 
-  const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
+  const [ProfileUser, SetProfileUser] = useState(JSON.parse(Cookies.get('userInfo')));
 
   const fetchItem = async () => {
     const fetchItem = await fetch(`https://fakestoreapi.com/products/${match.params.id}`);
@@ -88,11 +76,25 @@ function Post({ match }) {
     setItem(cosa);
   }
 
-  const [FavInformation,SetFavInfo] = useState(
+  const [Comentario, SetComment] = useState({
+    Id: 0,
+    IdUsuario: ProfileUser.data[0].id,
+    IdPublicacion: match.params.id,
+    Texto: "",
+    Fecha: "2019-01-06T17:16:40",
+    Activo: true
+  });
+
+  const [Like, SetLike] = useState({
+    IdUsuario: ProfileUser.data[0].id,
+    IdPublicacion: match.params.id
+  });
+
+  const [FavInformation, SetFavInfo] = useState(
     {
-      Id:0,
+      Id: 0,
       IdUsuario: ProfileUser.data[0].id,
-      IdPublicacion:match.params.id
+      IdPublicacion: match.params.id
     }
   );
 
@@ -104,7 +106,7 @@ function Post({ match }) {
     root: {
       flexGrow: 1
     },
-    box:{
+    box: {
       width: "500px",
       paddingLeft: "30%"
     },
@@ -139,10 +141,10 @@ function Post({ match }) {
         <Grid item xs={12} sm={8}>
           <Paper className={classes.paper}>
             <Box className={classes.box}>
-            <ImageView props={match.params.id}></ImageView>
+              <ImageView props={match.params.id}></ImageView>
             </Box>
           </Paper>
-                   {/*<img className="PostImage" src={item.image} ></img>
+          {/*<img className="PostImage" src={item.image} ></img>
           <img src="https://i.pinimg.com/564x/d2/d8/96/d2d8963344210762f786cf5acbf5f2de.jpg" /> */}
           <Divider variant="middle" />
           <br></br>
@@ -160,13 +162,17 @@ function Post({ match }) {
             <Grid item xs={12} sm={6}>
               <button className="TextEdit"> Follow </button>
               <button className="TextEdit" onClick={darLike}> Like </button>
-              <button className="TextEdit" onClick ={AddFavorite}> Favorite </button>
+              <button className="TextEdit" onClick={AddFavorite}> Favorite </button>
 
             </Grid>
-          
+
             <div className="TagSection">
               <h2 className="TextEdit">Tags :</h2>
-              <button>Arte</button>
+              {Tags.map((item, index) => (
+                <div key={index}>
+                   <Link key={item.id} to={`/TagsPage/${item.id}`}><button>{item.nombre}</button></Link>
+                </div>
+              ))}
             </div>
 
 
@@ -190,13 +196,10 @@ function Post({ match }) {
 
         </Grid>
       </Grid>
-      <Comment></Comment>
+      
       <div className="BodyTemaTest">
         {Comments.map((item, index) => (
-          <div key={index}>{item.texto}
-            <h1>{item.texto}</h1>
-          </div>
-
+          <Comment items={item}></Comment>
         ))}
       </div>
       <div className="MadeComent">

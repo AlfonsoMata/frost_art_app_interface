@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import {GetProfile} from '../api/UsersApi.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,9 +31,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Comment() {
+function Comment({items}) {
   useEffect(() => {
+    fetchItems();
   }, []);
+
+  const [perfil, setPerfil] = useState([]);
+
+  const fetchItems = async () =>{
+    const leProfile = await GetProfile(items.idUsuario);
+    setPerfil(leProfile);
+  }
 
   const classes = useStyles();
 
@@ -45,8 +54,8 @@ function Comment() {
             <Avatar className={classes.large} src="https://i.pinimg.com/564x/c8/58/ad/c858ad665a8ceceaafe22d58690fce1e.jpg"></Avatar>
           </Grid>
           <Grid item xs>
-            <h2 className="TextEdit">Sebastian</h2>
-            <Typography className={classes.Texto}>Comentario de Sebastian Stan</Typography>
+            <h2 className="TextEdit">{perfil.nombre}</h2>
+            <Typography className={classes.Texto}>{items.texto}</Typography>
           </Grid>
         </Grid>
       </Paper>

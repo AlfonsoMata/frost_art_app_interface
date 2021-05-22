@@ -33,6 +33,7 @@ import TemasIndex from './components/TemasTest';
 import ProfileEdit from './components/EditProfile';
 import UploadPictureTest from './components/PictureTest';
 import ThemePage from './components/ThemePage';
+import TagsPage from './components/TagsPage';
 
 
 
@@ -206,6 +207,7 @@ function App() {
           <Route path='/PictureTest' component={UploadPictureTest} />
           <Route path='/ThemePage/:id' component={ThemePage} />
           <Route path='/EditPost' component={EditPost}/>   
+          <Route path='/TagsPage/:id' component={TagsPage} />
         </Switch>
 
 
