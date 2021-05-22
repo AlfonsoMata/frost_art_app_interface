@@ -65,10 +65,10 @@ export const UpdateProfile = async (NewInfo,Id,Urlvideo)=>{
             email: NewInfo.Email,
             descripcion: NewInfo.Descripcion,
             fechaNacimiento: NewInfo.fechaNacimiento,
-            fotoPerfil:NewInfo.fotoPerfil
+            fotoPerfil:Urlvideo
         }
-        console.log('info a enviar',InfoWithURl);
         const response = await axios.put('/Usuarios/ActualizarUsuario/'+Id,InfoWithURl)
+        console.log('info a enviar',response);
         //console.log(response);
     } catch (error){
         console.error(error);

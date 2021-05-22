@@ -187,7 +187,7 @@ export  function SimpleTabs() {
       <Grid container spacing={0}>
         <Grid item xs={12} sm={4}>
         <h2>Spot Ligth</h2>
-        <ImageGrid3X3></ImageGrid3X3>
+        <ImageGrid3X3 props={99} ></ImageGrid3X3>
         </Grid>
         <Grid item xs={12} sm={8}>
          <h2>About Me</h2>

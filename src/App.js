@@ -41,6 +41,7 @@ import ThemePage from './components/ThemePage';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars, faEllipsisH, faBell, faUser, faEye, faCompass, faHistory, faFire, faPalette, faBullhorn } from '@fortawesome/free-solid-svg-icons'
 import { InputBase, ListItemText } from '@material-ui/core';
+import EditPost from './components/EditPost';
 library.add(faBars, faEllipsisH, faBell, faUser, faEye, faCompass, faHistory, faFire, faPalette, faBullhorn)
 //
 
@@ -204,6 +205,7 @@ function App() {
           <Route path='/EditProfile' component={ProfileEdit} />
           <Route path='/PictureTest' component={UploadPictureTest} />
           <Route path='/ThemePage/:id' component={ThemePage} />
+          <Route path='/EditPost' component={EditPost}/>   
         </Switch>
 
 

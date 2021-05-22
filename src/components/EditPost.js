@@ -9,8 +9,9 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import {AddImage} from '../api/ImageAPI';
 import Cookies from 'js-cookie';
+import { GetPost,UpdatePost} from '../api/PublicacionApi';
 
-const PublicPost = () => {
+const EditPost = () => {
 
   const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
   const useStyles = makeStyles((theme) => ({
@@ -50,7 +51,7 @@ const PublicPost = () => {
   }
 
   const [Post, SetPost] = useState({
-    Id: 0,
+    Id: 18,
     IdUsuario: ProfileUser.data[0].id,
     Titulo: "",
     Descripcion: "",
@@ -60,9 +61,13 @@ const PublicPost = () => {
   });
 
   const [Temas, setTemas] = useState([]);
+  const [infoPost, setInfoPost] = useState([]);
+
 
   useEffect(async () => {
     async function fetchData() {
+      const Postinfo = await GetPost(16)
+      console.log('Esto',Postinfo)
       const TemasRes = await GetAll();
       setTemas(TemasRes);
       console.log(Temas);
@@ -75,16 +80,15 @@ const PublicPost = () => {
     e.preventDefault();
     const TagsArray = Tags.Nombre.split(',')
     console.log(Post);
-    await CreatePost(Post,picture,TagsArray);
+    await UpdatePost(Post,picture,TagsArray);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     SetPost({
-      ...Post,
-      [name]: value,
-
-    });
+        ...Post,
+        [name]: value
+      });
   };
 
   const TagsSubmit = async (e) => {
@@ -124,7 +128,7 @@ const PublicPost = () => {
       <form onSubmit={PostSubmit}>
        
         <h2 className="EditText"> add a title</h2>
-        <input className="TextTitleInput" type="Text" name="Titulo" onChange={handleInputChange} value={Post.Titulo}></input>
+        <input className="TextTitleInput" type="Text" name="Titulo" onChange={handleInputChange} value={Post.Titulo}  ></input>
         <h2 className="EditText" >Add a description</h2>
         <textarea name="Descripcion" className="TextTitleInput" onChange={handleInputChange} value={Post.Descripcion} rows="5" cols="80"></textarea>
         <h2 className="EditText" >Seleccione una Categoria</h2>
@@ -145,4 +149,4 @@ const PublicPost = () => {
   );
 }
 
-export default PublicPost;
+export default EditPost;
