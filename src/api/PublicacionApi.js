@@ -1,11 +1,19 @@
 import {axiosBase as axios } from "./AxiosConfig";
 import React, {useState} from 'react';
 
-export const CreatePost = async (PostInfo) =>{
+export const CreatePost = async (PostInfo,UrlFoto) =>{
     try{
-     const response = await axios.post("/Publicaciones/CrearPublicacion",PostInfo)
+     console.log('info que enviamos',PostInfo);
+     const response = await axios.post("/Publicaciones/CrearPublicacion/",PostInfo)
+     const TempJson = {
+        Id: 0,
+        IdPublicacion: response.data,
+        Imagen: UrlFoto,
+    }
+     console.log('temporaljson',TempJson);
+     const response2 = await axios.post("/Imagenes/SubirImagen",TempJson);
      console.log("PostCreado" , response);
-     console.log ("id de la publicacion",response.data.Id)
+     console.log ("id de la publicacion",response.data)
     }catch (error){
         console.error(error);
         return error;
@@ -14,8 +22,14 @@ export const CreatePost = async (PostInfo) =>{
 
 export const CreateTags = async (Tags) =>{
     try{
-     const response = await axios.post("/Etiquetas/CrearEtiqueta",Tags);
-     console.log(response);
+        for (var i = 0; i < Tags.length; i++) {
+            const TempJson = {
+              Id: 0,
+              Nombre: Tags[i]
+            }
+            const response = await axios.post("/Etiquetas/CrearEtiqueta",TempJson);
+            console.log(response);
+        }
     }catch (error){
         console.error(error);
         return error;

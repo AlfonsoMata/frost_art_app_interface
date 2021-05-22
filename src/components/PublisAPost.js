@@ -8,9 +8,11 @@ import Divider from '@material-ui/core/Divider';
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import {AddImage} from '../api/ImageAPI';
+import Cookies from 'js-cookie';
 
 const PublicPost = () => {
 
+  const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1
@@ -49,10 +51,10 @@ const PublicPost = () => {
 
   const [Post, SetPost] = useState({
     Id: 0,
-    IdUsuario: 1,
+    IdUsuario: ProfileUser.data[0].id,
     Titulo: "",
     Descripcion: "",
-    IdTema: 0,
+    IdTema: "",
     Fecha: "2019-01-06T17:16:40",
     Activo: true
   });
@@ -72,7 +74,7 @@ const PublicPost = () => {
   const PostSubmit = async (e) => {
     e.preventDefault();
     console.log(Post);
-    await CreatePost(Post);
+    await CreatePost(Post,picture);
   };
 
   const handleInputChange = (e) => {
@@ -88,16 +90,8 @@ const PublicPost = () => {
     e.preventDefault();
     const TagsArray = Tags.Nombre.split(',')
     console.log(Tags);
-    for (var i = 0; i < TagsArray.length; i++) {
-      const TempJson = {
-        Id: 0,
-        Nombre: TagsArray[i]
-      }
-      console.log(TempJson);
-      SetTags(TempJson);
-
-      await CreateTags(TempJson);
-    }
+    await CreateTags(TagsArray);
+    
   };
 
   const handleTagsChange = (e) => {

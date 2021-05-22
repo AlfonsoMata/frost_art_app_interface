@@ -16,6 +16,7 @@ import Box from '@material-ui/core/Box';
 import {CreateFavorite, DeleteFavorite} from '../api/FavoriteApi.js';
 import ImageView from './ImageView';
 import { positions } from 'react-alert';
+import Cookies from 'js-cookie';
 
 function Post({ match }) {
 
@@ -79,6 +80,8 @@ function Post({ match }) {
     images: {}
   });
 
+  const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
+
   const fetchItem = async () => {
     const fetchItem = await fetch(`https://fakestoreapi.com/products/${match.params.id}`);
     const cosa = await fetchItem.json();
@@ -88,8 +91,8 @@ function Post({ match }) {
   const [FavInformation,SetFavInfo] = useState(
     {
       Id:0,
-      IdUsuario:2,
-      IdPublicacion:1
+      IdUsuario: ProfileUser.data[0].id,
+      IdPublicacion:match.params.id
     }
   );
 

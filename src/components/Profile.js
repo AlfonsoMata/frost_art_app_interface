@@ -150,8 +150,8 @@ export  function SimpleTabs() {
 
     useEffect(async()=>{
     async function fetchData(){
-        const FavRes = await GetFavPost(1);
-        const myPostRest = await GetUserPosts(1);
+        const FavRes = await GetFavPost(ProfileUser.data[0].id);
+        const myPostRest = await GetUserPosts(ProfileUser.data[0].id);
         setFavPost(FavRes);
         setMyPosts(myPostRest);
         console.log('misPost',myPostRest);
