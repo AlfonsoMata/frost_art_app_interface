@@ -111,34 +111,27 @@ const PublicPost = () => {
   const classes = useStyles();
   return (
     <div className="BodyPublish">
-      <form onSubmit={UploadFotoTemp}>
+   <form onSubmit={PostSubmit}>
       <h2 className="EditText" >Upload your art</h2>
         <Paper className={classes.paper}>
           <img width='200px' src={picture} />
         </Paper>
         <progress className="PictureProgress" value={uploadValue} max='100'></progress>
-        <input type='file' name="PhotoSelector" onChange={handleOnChange.bind(this)} />
+        <input type='file' name="PhotoSelector" onChange={handleOnChange.bind(this)} required/>
         {errorMesage}
-        <input type="submit" value="uploadFoto"></input>
-      </form>
-      <form onSubmit={PostSubmit}>
-       
         <h2 className="EditText"> add a title</h2>
-        <input className="TextTitleInput" type="Text" name="Titulo" onChange={handleInputChange} value={Post.Titulo}></input>
+        <input className="TextTitleInput" type="Text" name="Titulo" onChange={handleInputChange} value={Post.Titulo}required></input>
         <h2 className="EditText" >Add a description</h2>
-        <textarea name="Descripcion" className="TextTitleInput" onChange={handleInputChange} value={Post.Descripcion} rows="5" cols="80"></textarea>
-        <h2 className="EditText" >Seleccione una Categoria</h2>
-        <select name='IdTema' onChange={handleInputChange} value={Post.IdTema}>
+        <textarea name="Descripcion" className="TextTitleInput" onChange={handleInputChange} value={Post.Descripcion} rows="5" cols="80"required></textarea>
+        <h2 className="EditText" >Seleccione una Tema</h2>
+        <select name='IdTema' onChange={handleInputChange} value={Post.IdTema} required>
           {Temas.map((item, index) => (
             <option key={index} value={item.id} >{item.nombre}</option>
           ))}
         </select> <br></br>
+        <h2 className="EditText" >Add less than 20 Tags</h2>
+        <textarea className="TextTitleInput" rows="5" cols="80" onChange={handleTagsChange} name="Nombre" value={Tags.Nombre} required></textarea><br></br>
         <input type='Submit'></input>
-      </form>
-      <form onSubmit={TagsSubmit}>
-        <h2>Add less than 20 Tags</h2>
-        <textarea rows="5" cols="80" onChange={handleTagsChange} name="Nombre" value={Tags.Nombre}></textarea><br></br>
-        <input type="submit"></input>
       </form>
 
     </div>

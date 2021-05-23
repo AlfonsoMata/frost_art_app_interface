@@ -11,3 +11,14 @@ export const GetAll = async ()=>{
     }
 }
 
+export const GetTopThemes = async ()=>{
+    try{
+        const response = await axios.get("/Publicaciones/GetTemasMasPublicaciones")
+        return response.data
+    }catch(error)
+    {
+        console.error(error)
+        return error
+    }
+}
+

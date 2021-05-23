@@ -11,8 +11,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     overflow: 'hidden',
-    paddingLeft: '10%',
-    paddingTop: '80px'
+    paddingLeft: '0%',
+    paddingTop: '80px',
+    position: 'relative'
   },
   paper: {
     maxWidth: 900,

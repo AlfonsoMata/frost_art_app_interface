@@ -25,5 +25,25 @@
 }
 
 .TextPanel{
-    background-color: #1e4459 ;
+    background-color: #1e4459;
+    padding: 3%;
+}
+
+@font-face {
+    font-family: 'IceFont';
+  src: local("IceMirrorInWinterKei-d99LV"),
+  local("IceMirrorInWinterKei-d99LV"),
+  url(Ice-Mirror-in-Winter-Kei.ttf.woff);
+  
+  }
+
+.TextEditH1{
+    font-family: 'IceFont';
+    color: #ade8f4;
+    font-size: 30px;
+}
+.TextEditH2{
+    font-family: 'IceFont';
+    color: #ade8f4;
+    font-size: 25px;
 }

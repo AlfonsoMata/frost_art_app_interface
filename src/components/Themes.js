@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { GridList, GridListTile, GridListTileBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { GetAll } from '../api/TemasApi.js';
+import { GetAll,GetTopThemes } from '../api/TemasApi.js';
 
 function Themes() {
   const [Temas, setTemas] = useState([]);
+  const [TopThemes,setTopThemes] = useState([]);
 
   useEffect(async () => {
     async function fetchData() {
       const TemasRes = await GetAll();
+      const TemasTopRes = await GetTopThemes();
       setTemas(TemasRes);
       console.log(Temas);
     }
@@ -38,14 +40,19 @@ function Themes() {
       justifyContent: 'space-around',
       overflow: 'hidden',
       backgroundColor: '#102a39',
+
     },
     gridList: {
       flexWrap: 'nowrap',
       // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
       transform: 'translateZ(0)',
+      height: '100%'
     },
     title: {
       color: theme.palette.primary.light,
+    },
+    Fotos:{
+      height:"200px"
     },
     titleBar: {
       background:
@@ -58,12 +65,12 @@ function Themes() {
   return (
     <div className="BodyFalso">
       <h1> TOP Themes</h1>
-      <div className={classes2.root}>
+      <div className={classes.root}>
         <GridList className={classes2.gridList} cols={3}>
           {Temas.map((item, index) => (
             <Link to="">
-              <GridListTile >
-                <img key={index} src="https://i.pinimg.com/564x/8f/02/c6/8f02c60a33f46d260328983abbfc8429.jpg" />
+              <GridListTile className={classes.Fotos}>
+                <img  key={index} src={item.imagen} />
                 <GridListTileBar
                   title={item.nombre}
                   classes2={{
@@ -85,7 +92,7 @@ function Themes() {
         <GridList cellHeight={350} className={classes.gridList} cols={6}>
           {Temas.map(item => (
             <GridListTile key={item.id} cols={1 || 2}>
-              <Link key={item.id} to={`/ThemePage/${item.id}`}><img className="ImageShow" src="https://i.pinimg.com/564x/a7/4b/82/a74b8228e4ef5f9e0f624b1398798662.jpg" alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" /></Link>
+              <Link key={item.id} to={`/ThemePage/${item.id}`}><img className="ImageShow" src={item.imagen} alt="https://i.pinimg.com/564x/39/a4/34/39a43475ae2487da954620de7de32e06.jpg" /></Link>
               <GridListTileBar
                 title={item.nombre}
                 classes2={{

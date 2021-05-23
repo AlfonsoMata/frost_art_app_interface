@@ -1,6 +1,7 @@
 import { axiosBase as axios } from "./AxiosConfig";
 import React, { useState } from 'react';
 
+
 export const CreatePost = async (PostInfo, UrlFoto, Tags) => {
     try {
         console.log('info que enviamos', PostInfo);
@@ -98,16 +99,22 @@ export const GetPostThemeLimit = async (idTema) => {
 
 export const UpdatePost = async (PostInfo, UrlFoto, Tags) => {
     try {
-        console.log('info que enviamos', PostInfo);
         const response = await axios.put("/Publicaciones/ActualizarPublicacion/" + PostInfo.Id, PostInfo)
         const TempJson = {
             Id: 0,
             IdPublicacion: PostInfo.Id,
             Imagen: UrlFoto
         }
-        console.log('temporaljson', TempJson);
+        const getFoto = await axios.get("/Imagenes/GetImagenPublicacion/"+PostInfo.Id)
+        const imgid= getFoto.data[0].id
+        const responseDelete = await axios.delete("/Imagenes/BorrarImagen/", { params: { id:imgid } })
         const response2 = await axios.post("/Imagenes/SubirImagen", TempJson);
-        console.log("PostCreado", response);
+        const PostEtiquetas = await axios.get("/PublicacionEtiquetas/GetPublicacionPublicacionEtiquetas/"+PostInfo.Id);
+        console.log("PostEtiquetas",PostEtiquetas.data);
+        for(var i=0; i<PostEtiquetas.data.length; i++)
+        {
+            const tagsDelete = await axios.delete("/PublicacionEtiquetas/BorrarPublicacionEtiqueta/",{ params: { id: PostEtiquetas.data[i].id } });
+        }
         console.log("id de la publicacion", response.data)
         for (var i = 0; i < Tags.length; i++) {
             const TempJson = {
@@ -120,6 +127,7 @@ export const UpdatePost = async (PostInfo, UrlFoto, Tags) => {
                 idPublicacion: PostInfo.Id,
                 idEtiqueta: response3.data
             }
+            console.log('what tha fuck',response3.data)
             const response4 = await axios.post("/PublicacionEtiquetas/CrearPublicacionEtiqueta", TempJson2);
             console.log(response);
         }
@@ -153,6 +161,68 @@ export const GetPostByTag = async (Id) => {
     }
 }
 
+export const GetHomePost = async() =>{
+    try{
+        const response = await axios.get("/Publicaciones/GetPublicacionesHome")
+        console.log("post",response.data);
+        return response.data
+    }catch(error){
+        console.error(error);
+        return error
+    }
+}
+
+export const GetPublicacionesNuevas = async ()=>{
+    try {
+        const response = await axios.get("/Publicaciones/GetPublicacionesNuevas")
+        console.log("postNuevas",response.data)
+        return response.data
+    }catch(error){
+        console.error(error);
+        return error
+    }
+}
+
+export const GetMostLikedPosts = async ()=>{
+    try{
+        const response = await axios.get('/Likes/GetPublicacionesMasLikes')
+        return response.data
+    }catch(error)
+    {
+        console.error(error)
+        return error
+    }
+}
+
+export const GetAllEtiquetas = async () =>{
+    try{
+        const response = await axios.get('Etiquetas/GetAll')
+        console.log("Todas las etiquetas",response.data)
+        return response.data;
+    }catch(error)
+    {
+        console.error(error);
+        return error;
+    }
+}
+
+export const DeletePost = async(idPublicacion) =>{
+    try{
+        const response = await axios.delete("/Publicaciones/DesabilitarPublicaciones/"+idPublicacion)
+        console.log("Resultado",response.data)
+        const PostEtiquetas = await axios.get("/PublicacionEtiquetas/GetPublicacionPublicacionEtiquetas/"+idPublicacion);
+        console.log("PostEtiquetas",PostEtiquetas.data);
+        for(var i=0; i<PostEtiquetas.data.length; i++)
+        {
+            const tagsDelete = await axios.delete("/PublicacionEtiquetas/BorrarPublicacionEtiqueta/",{ params: { id: PostEtiquetas.data[i].id } });
+        }
+        return response.data;
+    }catch(error)
+    {
+        console.error(error);
+        return error
+    }
+}
 
 // export const GetPost = async (PostInfo) =>{
 //     try{

@@ -3,7 +3,7 @@ import {axiosBase as axios } from "./AxiosConfig";
 export const CreateFavorite = async (Favorite) =>{
     try{
         const fav_res = await axios.get('/Usuarios/GetUsuarioFavoritos/'+Favorite.IdUsuario);
-        console.log(Favorite)
+        console.log('info recibida',Favorite)
         console.log('array lengt', fav_res)
         var found = false;
         for(var i=0; i<fav_res.data.length; i++)
@@ -17,7 +17,7 @@ export const CreateFavorite = async (Favorite) =>{
          
           
         }
-        if(fav_res.data.length == 0 || found== true){
+        if( found== true){
             console.log(found);
             console.log("Favorito  Encontrado");
             const response = await axios.delete("/Favoritos/BorrarFavorito",{params:{idusuario: Favorite.IdUsuario , idpublicacion: Favorite.IdPublicacion}});

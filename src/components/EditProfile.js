@@ -80,18 +80,16 @@ const ProfileEdit = (props) => {
                 <img className="EditFoto" src={picture}></img>
                 <progress className="PictureProgress" value={uploadValue} max='100'></progress>
                 <input type='file' name="PhotoSelector" onChange={handleOnChange.bind(this)} />
-                <input type="Hiden" name="fotoPerfil" onChange={handleInputChange} value={NewInfoProfile.fotoPerfil}/>
                 {errorMesage}
-                <input type="submit" value="uploadFoto"></input>
                 <h2>Nombre de usuario</h2>
-                <input type="Text" name="Nombre"  onChange={handleInputChange} value={NewInfoProfile.Nombre} defaultValue={ProfileUser.data[0].nombre} ></input>
+                <input type="Text" name="Nombre"  onChange={handleInputChange} value={NewInfoProfile.Nombre} defaultValue={ProfileUser.data[0].nombre} required ></input>
                 <h2>Contra</h2>
-                <input type="Password" name="Contra"  onChange={handleInputChange} value={NewInfoProfile.Contra} defaultValue={ProfileUser.data[0].contra} ></input>
+                <input type="Password" name="Contra"  onChange={handleInputChange} value={NewInfoProfile.Contra} defaultValue={ProfileUser.data[0].contra} required></input>
                 <h2>Email</h2>
-                <input type="Email" name ="Email" onChange={handleInputChange} value={NewInfoProfile.Email} defaultValue={ProfileUser.data[0].email} ></input>
+                <input type="Email" name ="Email" onChange={handleInputChange} value={NewInfoProfile.Email} defaultValue={ProfileUser.data[0].email} required ></input>
                 <h2>Descripcion</h2>
-                <textarea name="Descripcion" onChange={handleInputChange} value={NewInfoProfile.Descripcion} defaultValue={ProfileUser.data[0].descripcion}></textarea>
-                <h2></h2>
+                <textarea name="Descripcion" onChange={handleInputChange} value={NewInfoProfile.Descripcion} defaultValue={ProfileUser.data[0].descripcion}></textarea><br></br>
+                <input type="submit" value="EditarPerfil"></input>
             </form>
 
         </div>

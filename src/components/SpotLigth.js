@@ -7,19 +7,14 @@ import Cookies from 'js-cookie';
 
 
 
+export const ImageGrid3x3SpotLigth = (props) => {
 
-
-
-export const ImageGrid3x3 = (props) => {
-
-    const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
     useEffect(()=>{
         const fetchItems = async () =>{
-             console.log(props.props)
-                const data = await GetPostThemeLimit(props.props);
+            console.log(props.props)
+                const data = await GetSpotligth(props.props);
                 setItems(data);
-           
-           
+
         };
 
         fetchItems();
@@ -27,10 +22,6 @@ export const ImageGrid3x3 = (props) => {
     },[props.props]);
 
     const [items,setItems] = useState([]);
-
-   
-
-
 
     return (
         
@@ -44,4 +35,5 @@ export const ImageGrid3x3 = (props) => {
     ); 
 }
 
-export default ImageGrid3x3;
+
+export default ImageGrid3x3SpotLigth;

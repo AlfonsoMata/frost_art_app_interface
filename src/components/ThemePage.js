@@ -3,13 +3,20 @@ import Masonry from 'react-masonry-css';
 import { Link } from 'react-router-dom';
 import ImageGrid from "./GridImageComponent";
 import { GetPostByTheme } from '../api/PublicacionApi.js';
-
+import ImageShow from './ImageView';
+import './ThemePage.css'
 function ThemePage({ match }) {
     const [Posts, setPosts] = useState([]);
+    const [nombreTema, setNombreTema] = useState("");
     useEffect(async () => {
         async function fetchData() {
             const infoRest = await GetPostByTheme(match.params.id);
             setPosts(infoRest);
+            if(infoRest.length >0)
+            {
+                setNombreTema(infoRest[0].nombreTema)
+            }
+          
             console.log("Cosas: "+Posts);
         }
         fetchData();
@@ -22,14 +29,14 @@ function ThemePage({ match }) {
     }
 
     return (
-        <div>
-            <h1>New  </h1>
+        <div className="BodyTemas">
+            <h1>{nombreTema}</h1>
             <Masonry breakpointCols={breakpoints}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column">
                 {Posts.map((item, index) => (
-                    <div key={index}>{item.nombreUsuario}
-                        <h1>{item.nombreUsuario}</h1>
+                    <div key={index}>
+                     <Link to={`/Post/${item.idPublicacion}`} >  <ImageShow props={item.idPublicacion}></ImageShow></Link>
                     </div>
 
                 ))}

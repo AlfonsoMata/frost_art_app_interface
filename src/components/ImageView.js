@@ -12,7 +12,7 @@ function ImageView(props) {
          }
  
          fetchData();
-     },[]);
+     },[props.props]);
     return (
         <Fragment>
            <img className="PreviewImage" src={UrlImagen}></img>

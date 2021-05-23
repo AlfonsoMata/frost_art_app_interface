@@ -3,15 +3,21 @@ import './PublishPost.css';
 import { GetAll } from '../api/TemasApi';
 import { CreatePost, CreateTags } from '../api/PublicacionApi';
 import firebase from './FireBase';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import {AddImage} from '../api/ImageAPI';
 import Cookies from 'js-cookie';
-import { GetPost,UpdatePost} from '../api/PublicacionApi';
+import { GetPost,UpdatePost,DeletePost} from '../api/PublicacionApi';
+import {GetImage} from '../api/ImageAPI'
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { useHistory } from "react-router-dom";
 
-const EditPost = () => {
+const EditPost = ({match}) => {
 
   const [ProfileUser,SetProfileUser]= useState(JSON.parse(Cookies.get('userInfo')));
   const useStyles = makeStyles((theme) => ({
@@ -51,12 +57,12 @@ const EditPost = () => {
   }
 
   const [Post, SetPost] = useState({
-    Id: 18,
-    IdUsuario: ProfileUser.data[0].id,
+    Id: 0,
+    IdUsuario: 0,
     Titulo: "",
     Descripcion: "",
     IdTema: "",
-    Fecha: "2019-01-06T17:16:40",
+    Fecha: "",
     Activo: true
   });
 
@@ -66,11 +72,46 @@ const EditPost = () => {
 
   useEffect(async () => {
     async function fetchData() {
-      const Postinfo = await GetPost(16)
+      const Postinfo = await GetPost(match.params.id)
+      const Urlfoto = await GetImage(match.params.id)
+      console.log("Foto info " , Urlfoto)
+      SetUpPicture(Urlfoto[0].imagen)
       console.log('Esto',Postinfo)
       const TemasRes = await GetAll();
+      const TempPostInfoJson = {
+        Id: match.params.id,
+        IdUsuario: ProfileUser.data[0].id,
+        Titulo: Postinfo[0].titulo,
+        Descripcion: Postinfo[0].descripcion,
+        IdTema: Postinfo[0].idTema,
+        Fecha: "2202-01-06T17:16:40",
+        Activo: true
+      }
+
+      SetPost(TempPostInfoJson);
       setTemas(TemasRes);
-      console.log(Temas);
+      console.log('ayuda',Post);
+      var UnirTags = "";
+      for(var i=0;i<Postinfo[0].etiquetas.length;i++)
+      {
+        if(i==0)
+        {
+          UnirTags = UnirTags+Postinfo[0].etiquetas[i].nombre;
+        }
+        else
+        {
+          UnirTags = UnirTags+','+Postinfo[0].etiquetas[i].nombre;
+        }
+        console.log('Etiquetas',Postinfo[0].etiquetas[i].nombre);
+        
+      
+      }
+      const TempTagJson={
+        Id: 0,
+        Nombre: UnirTags
+      }
+      SetTags(TempTagJson);
+     
     }
 
     fetchData();
@@ -79,7 +120,6 @@ const EditPost = () => {
   const PostSubmit = async (e) => {
     e.preventDefault();
     const TagsArray = Tags.Nombre.split(',')
-    console.log(Post);
     await UpdatePost(Post,picture,TagsArray);
   };
 
@@ -95,7 +135,11 @@ const EditPost = () => {
     e.preventDefault();
     
   };
-
+  const Delete = async (e)=>{
+    e.preventDefault();
+    
+    console.log("BorrarPublicacion")
+  };
   const handleTagsChange = (e) => {
     const { name, value } = e.target;
     SetTags({
@@ -110,12 +154,31 @@ const EditPost = () => {
   await AddImage(picture,0,2);
  }
 
+ const [open, setOpen] = React.useState(false);
 
+ const handleClickOpen = () => {
+   setOpen(true);
+   
+ };
+ const history = useHistory();
+ 
+ const handleCloseYes = async () => {
+  setOpen(false);
+  await DeletePost(match.params.id);
+  history.push("/Profile");
+  console.log("ah yes me borraron haha ")
+
+};
+
+ const handleCloseNo =  () => {
+   setOpen(false);
+   console.log("ah no me borraron haha ")
+ };
 
   const classes = useStyles();
   return (
     <div className="BodyPublish">
-      <form onSubmit={UploadFotoTemp}>
+       <form onSubmit={PostSubmit}>
       <h2 className="EditText" >Upload your art</h2>
         <Paper className={classes.paper}>
           <img width='200px' src={picture} />
@@ -123,27 +186,51 @@ const EditPost = () => {
         <progress className="PictureProgress" value={uploadValue} max='100'></progress>
         <input type='file' name="PhotoSelector" onChange={handleOnChange.bind(this)} />
         {errorMesage}
-        <input type="submit" value="uploadFoto"></input>
-      </form>
-      <form onSubmit={PostSubmit}>
+     
+    
        
         <h2 className="EditText"> add a title</h2>
         <input className="TextTitleInput" type="Text" name="Titulo" onChange={handleInputChange} value={Post.Titulo}  ></input>
         <h2 className="EditText" >Add a description</h2>
         <textarea name="Descripcion" className="TextTitleInput" onChange={handleInputChange} value={Post.Descripcion} rows="5" cols="80"></textarea>
-        <h2 className="EditText" >Seleccione una Categoria</h2>
+        <h2 className="EditText" >Seleccione un Tema</h2>
         <select name='IdTema' onChange={handleInputChange} value={Post.IdTema}>
           {Temas.map((item, index) => (
             <option key={index} value={item.id} >{item.nombre}</option>
           ))}
         </select> <br></br>
-        <input type='Submit'></input>
+        <h2 className="EditText" >Add less than 20 Tags</h2>
+        <textarea className="TextTitleInput" rows="5" cols="80" onChange={handleTagsChange} name="Nombre" value={Tags.Nombre}></textarea><br></br>
+        <input type='Submit' value="UpdatePost"></input>
       </form>
-      <form onSubmit={TagsSubmit}>
-        <h2>Add less than 20 Tags</h2>
-        <textarea rows="5" cols="80" onChange={handleTagsChange} name="Nombre" value={Tags.Nombre}></textarea><br></br>
-        <input type="submit"></input>
-      </form>
+            
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Borrar publicacion
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleCloseNo}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Esta seguro que quiere eliminar la publicacion?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseNo} color="primary">
+            No
+          </Button>
+          <Button onClick={handleCloseYes} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      
+    
 
     </div>
   );

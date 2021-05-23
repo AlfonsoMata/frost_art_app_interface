@@ -14,7 +14,6 @@ import Post from './components/Post';
 import LogIn from './components/LogIn';
 import TagView from './components/TagView';
 import NewRelease from './components/NewReleaseView';
-import OfTheDay from './components/OfTheDay';
 import Themes from './components/Themes';
 import PublicPost from './components/PublisAPost'
 import ArtistYouFollow from './components/ArtistYouFollow';
@@ -34,6 +33,7 @@ import ProfileEdit from './components/EditProfile';
 import UploadPictureTest from './components/PictureTest';
 import ThemePage from './components/ThemePage';
 import TagsPage from './components/TagsPage';
+
 
 
 
@@ -97,12 +97,7 @@ const menuItems = [
   {
     text: 'Explore',
     icon: 'compass',
-    path: '/Home'
-  },
-  {
-    text: 'MostLikeToday',
-    icon: 'history',
-    path: '/MostLikeToday'
+    path: '/'
   },
   {
     text: 'Popular',
@@ -122,6 +117,8 @@ const menuItems = [
 ]
 
 function App() {
+
+ 
   const classes = useStyles();
   const [cookies, setCookie] = useCookies(['logged']);
   if (Cookies.get('logged') == null) {
@@ -135,23 +132,22 @@ function App() {
 
         <AppBar position="static" className={classes.AppBar}>
           <Toolbar>
-            <FontAwesomeIcon size="2x" icon="bars" />
+          
             <img id="NavBarLogo" src={WebLogo} />
             <div id="PageName" className={classes.title} >FrostArt</div>
-            <div className={classes.Search} ><InputBase placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}></InputBase></div>
-            <FontAwesomeIcon size="2x" icon="ellipsis-h" />
-            <FontAwesomeIcon size="2x" icon="bell" />
-            <FontAwesomeIcon size="2x" icon="user" />
-            <Link to="/Profile">Profile</Link>
+            <div className={classes.Search} ></div>
+         
+            {!JSON.parse(Cookies.get('logged')) ?
+              <Link to="/Login"></Link>
+              :
+              <Link to="/Profile"> <FontAwesomeIcon size="2x" icon="user" /></Link>
+            }
             {!JSON.parse(Cookies.get('logged')) ?
               <Link to="/Login"><Button color="inherit">Log in</Button></Link>
               :
               <Button color="inherit" onClick={LogOut}>Log out</Button>
             }
+       
           </Toolbar>
         </AppBar>
 
@@ -168,17 +164,44 @@ function App() {
           <div className={classes.drawerContainer}>
             <List>
               <ListItem >
-                <Link to='/CreatePost'>
-                  <label>add Post</label>
-                </Link>
+              {!JSON.parse(Cookies.get('logged')) ?
+              <Link ></Link>
+              :
+              <Link to='/CreatePost'>
+              <label>add Post</label>
+            </Link>
+            }
               </ListItem>
-              {menuItems.map(item => (
-                <ListItem key={item.text}>
-                  <Link to={item.path}>
-                    <FontAwesomeIcon size="2x" icon={item.icon} />
+                <ListItem >
+                {!JSON.parse(Cookies.get('logged')) ?
+              <Link ></Link>
+              :
+              <Link to={"/ArtistYouFollow"}>
+              <FontAwesomeIcon size="2x" icon={"eye"} />
+            </Link>
+            }
+                 
+                </ListItem>
+                  <ListItem >
+                  <Link to={"/"}>
+                    <FontAwesomeIcon size="2x" icon={"compass"} />
                   </Link>
                 </ListItem>
-              ))}
+                  <ListItem>
+                  <Link to={"/Popular"}>
+                    <FontAwesomeIcon size="2x" icon={"fire"} />
+                  </Link>
+                </ListItem>
+                  <ListItem >
+                  <Link to={"/Themes"}>
+                    <FontAwesomeIcon size="2x" icon={"palette"} />
+                  </Link>
+                </ListItem>
+                  <ListItem>
+                  <Link to={"/News"}>
+                    <FontAwesomeIcon size="2x" icon={"bullhorn"} />
+                  </Link>
+                </ListItem>
             </List>
           </div>
         </Drawer>
@@ -191,23 +214,23 @@ function App() {
 
 
         <Switch>
-          <Route path="/Home" exact component={HomePage} />
-          <Route path="/Post/:id" component={Post} />
-          <Route path="/Login" component={LogIn} />
-          <Route path="/Tags" component={TagView} />
-          <Route path="/News" component={NewRelease} />
-          <Route path="/MostLikeToday" component={OfTheDay} />
-          <Route path="/Themes" component={Themes} />
-          <Route path="/ArtistYouFollow" component={ArtistYouFollow} />
-          <Route path="/Popular" component={Popular} />
-          <Route path='/CreatePost' component={PublicPost} />
-          <Route path='/Profile' component={Profile} />
-          <Route path='/TemasTest' component={TemasIndex} />
-          <Route path='/EditProfile' component={ProfileEdit} />
-          <Route path='/PictureTest' component={UploadPictureTest} />
-          <Route path='/ThemePage/:id' component={ThemePage} />
-          <Route path='/EditPost' component={EditPost}/>   
-          <Route path='/TagsPage/:id' component={TagsPage} />
+          <Route exact path="/" exact component={HomePage} />
+          <Route exact path="/Post/:id" component={Post} />
+          <Route exact path="/Login" component={LogIn} />
+          <Route exact path="/Tags" component={TagView} />
+          <Route exact path="/News" component={NewRelease} />
+
+          <Route exact path="/Themes" component={Themes} />
+          <Route exact path="/ArtistYouFollow" component={ArtistYouFollow} />
+          <Route exact path="/Popular" component={Popular} />
+          <Route exact path='/CreatePost' component={PublicPost} />
+          <Route exact path='/Profile' component={Profile} />
+          <Route exact path='/TemasTest' component={TemasIndex} />
+          <Route exact path='/EditProfile' component={ProfileEdit} />
+          <Route exact path='/PictureTest' component={UploadPictureTest} />
+          <Route exact path='/ThemePage/:id' component={ThemePage} />
+          <Route exact path='/EditPost/:id' component={EditPost}/>   
+          <Route exact path='/TagsPage/:id' component={TagsPage} />
         </Switch>
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import ImageGrid3x3 from './PostRecomendationGrid'
+import {ImageGrid3x3} from './PostRecomendationGrid'
 import './Post.css'
 import Comment from './CommentComponent';
 import Grid from '@material-ui/core/Grid';
@@ -10,23 +10,57 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AddComent } from '../api/ComentariosApi.js';
 import { GetComments } from '../api/ComentariosApi.js';
 import { DelComments } from '../api/ComentariosApi.js';
-import { GetPost } from '../api/PublicacionApi';
+import { GetPost, } from '../api/PublicacionApi';
 import { AddLike } from '../api/LikesApi.js';
+import {FollowUser} from '../api/UsersApi.js'
 import Box from '@material-ui/core/Box';
 import { CreateFavorite, DeleteFavorite } from '../api/FavoriteApi.js';
 import ImageView from './ImageView';
 import { positions } from 'react-alert';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { ImageGrid3x3SpotLigth } from './SpotLigth';
 
 function Post({ match }) {
-
+  const [FavInformation, SetFavInfo] = useState(
+    {
+      Id: 0,
+      IdUsuario: 0,
+      IdPublicacion: 0
+    }
+  );
+  
+  const [UsuarioId, setIdUsuario] = useState(0);
+  const [Temaid,SetTemaID] = useState(0);
   const [Comments, setComments] = useState([]);
   const [Tags, setTags] = useState([]);
   const [Titulo, setTitulo] = useState("");
   const [Descripcion, setDescripcion] = useState("");
   const [NombreUsuario, setNombreUsuario] = useState("");
   const [PictureProfile, setPictureProfile] = useState("");
+  const [ProfileUser, SetProfileUser] = useState(JSON.parse(Cookies.get('userInfo')));
+  
+  
+  const [Comentario, SetComment] = useState({
+    Id: 0,
+    IdUsuario: ProfileUser.data[0].id,
+    IdPublicacion: match.params.id,
+    Texto: "",
+    Fecha: "2019-01-06T17:16:40",
+    Activo: true
+  });
+
+  const [Like, SetLike] = useState({
+    IdUsuario: ProfileUser.data[0].id,
+    IdPublicacion: match.params.id
+  });
+
+  const [FollowInfo,setFollowInfo]= useState({
+    id:0,
+    idUsuario: 0,
+    idUsuarioSeguido: ProfileUser.data[0].id,
+  })
+
 
   useEffect(async () => {
     async function fetchData() {
@@ -37,13 +71,41 @@ function Post({ match }) {
       setDescripcion(infoRest[0].descripcion);
       setNombreUsuario(infoRest[0].nombreUsuario);
       setPictureProfile(infoRest[0].fotoPerfil);
+      SetTemaID(infoRest[0].idTema)
+      setIdUsuario(infoRest[0].idUsuario)
 
+      console.log("temaid",Temaid);
+      const FavTemJson ={
+        Id:0,
+        IdUsuario:ProfileUser.data[0].id,
+        IdPublicacion: match.params.id
+      }
+      const ComentTempJson ={
+        Id: 0,
+        IdUsuario: ProfileUser.data[0].id,
+        IdPublicacion: match.params.id,
+        Texto: "",
+        Fecha: "2019-01-06T17:16:40",
+        Activo: true
+      }
+      const LikeTempJson={
+        IdUsuario: ProfileUser.data[0].id,
+        IdPublicacion: match.params.id
+      }
+      const TempFollowJson = {
+        id:0,
+        idUsuario: ProfileUser.data[0].id ,
+        idUsuarioSeguido: infoRest[0].idUsuario ,
+      }
+      setFollowInfo(TempFollowJson)
+      SetComment(ComentTempJson);
+      SetLike(LikeTempJson);
+      SetFavInfo(FavTemJson);
       setComments(CommentsRes);
-      console.log("Info"+infoRest[0]);
+      console.log("Info"+infoRest);
     }
-    fetchItem();
     fetchData();
-  }, []);
+  }, [match.params.id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,42 +126,13 @@ function Post({ match }) {
     await AddLike(Like);
   }
 
-  const [cosa, setItem] = useState({
-    images: {}
-  });
-
-  const [ProfileUser, SetProfileUser] = useState(JSON.parse(Cookies.get('userInfo')));
-
-  const fetchItem = async () => {
-    const fetchItem = await fetch(`https://fakestoreapi.com/products/${match.params.id}`);
-    const cosa = await fetchItem.json();
-    setItem(cosa);
-  }
-
-  const [Comentario, SetComment] = useState({
-    Id: 0,
-    IdUsuario: ProfileUser.data[0].id,
-    IdPublicacion: match.params.id,
-    Texto: "",
-    Fecha: "2019-01-06T17:16:40",
-    Activo: true
-  });
-
-  const [Like, SetLike] = useState({
-    IdUsuario: ProfileUser.data[0].id,
-    IdPublicacion: match.params.id
-  });
-
-  const [FavInformation, SetFavInfo] = useState(
-    {
-      Id: 0,
-      IdUsuario: ProfileUser.data[0].id,
-      IdPublicacion: match.params.id
-    }
-  );
-
+ 
   const AddFavorite = async () => {
     await CreateFavorite(FavInformation);
+  }
+
+  const DarFollow = async () => {
+    await FollowUser(FollowInfo)
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -160,9 +193,24 @@ function Post({ match }) {
 
             </Grid>
             <Grid item xs={12} sm={6}>
-              <button className="TextEdit"> Follow </button>
+            {!JSON.parse(Cookies.get('logged')) ?
+              <button>  </button>
+              :
+              <button className="TextEdit" onClick ={DarFollow}> Follow </button>
+            }
+              {!JSON.parse(Cookies.get('logged')) ?
+              <button>  </button>
+              :
               <button className="TextEdit" onClick={darLike}> Like </button>
+            }
+              {!JSON.parse(Cookies.get('logged')) ?
+              <button>  </button>
+              :
               <button className="TextEdit" onClick={AddFavorite}> Favorite </button>
+            }
+             
+             
+            
 
             </Grid>
 
@@ -170,7 +218,7 @@ function Post({ match }) {
               <h2 className="TextEdit">Tags :</h2>
               {Tags.map((item, index) => (
                 <div key={index}>
-                   <Link key={item.id} to={`/TagsPage/${item.id}`}><button>{item.nombre}</button></Link>
+                   <Link key={item.id} to={`/TagsPage/${item.id}`}><button className="ButtonEtiquetas">{item.nombre}</button></Link>
                 </div>
               ))}
             </div>
@@ -189,9 +237,9 @@ function Post({ match }) {
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper2}>
             <h2 className="TextEdit" >See More of this Artist</h2>
-            <ImageGrid3x3 props={99}></ImageGrid3x3><br></br>
+            <ImageGrid3x3SpotLigth props={UsuarioId}></ImageGrid3x3SpotLigth><br></br>
             <h2 className="TextEdit"> see more like this</h2>
-            <ImageGrid3x3 props={2}></ImageGrid3x3>
+            <ImageGrid3x3 props={Temaid}></ImageGrid3x3>
           </Paper>
 
         </Grid>
@@ -202,12 +250,17 @@ function Post({ match }) {
           <Comment items={item}></Comment>
         ))}
       </div>
-      <div className="MadeComent">
-        <form id="addCommentForm" onSubmit={UserSubmit}>
-          <input name="Texto" type="text" onChange={handleInputChange}></input>
-          <input type='Submit'></input>
-        </form>
-      </div>
+      {!JSON.parse(Cookies.get('logged')) ?
+              <button>  </button>
+              :
+              <div className="MadeComent">
+              <form id="addCommentForm" onSubmit={UserSubmit}>
+                <input name="Texto" type="text" onChange={handleInputChange}></input>
+                <input type='Submit'></input>
+              </form>
+            </div>
+            }
+     
 
 
     </div>

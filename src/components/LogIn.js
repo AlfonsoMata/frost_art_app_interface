@@ -24,7 +24,7 @@ function LogIn(props) {
     Contra: "",
     Email: "",
     Descripcion: "Handsome",
-    FechaNacimiento: "2019-01-06",
+    FechaNacimiento: "05/30/2000",
     FotoPerfil: "https://firebasestorage.googleapis.com/v0/b/frostarttesta.appspot.com/o/pictures%2FDefaultProfilePicture.png?alt=media&token=6215b450-9c4c-4a49-a9ca-6acb3582228a"
   });
 
@@ -49,7 +49,7 @@ function LogIn(props) {
     else {
       setCookie('userInfo', LoginRes, { path: '/' });
       setCookie('logged', true, { path: '/' });
-      history.push("/Home");
+      history.push("/");
     }
 
 
@@ -121,9 +121,9 @@ function LogIn(props) {
                   <div id='loginform'>
                     <h2>Log in start sharing your art</h2>
                     <label>User </label>
-                    <input name="nombre" onChange={handleInputChange2} value={UserTry.nombre} type="text"></input><br />
+                    <input name="nombre" onChange={handleInputChange2} value={UserTry.nombre} type="text" required ></input><br />
                     <label>Password </label>
-                    <input name="contra" onChange={handleInputChange2} value={UserTry.contra} type="password"></input><br />
+                    <input name="contra" onChange={handleInputChange2} value={UserTry.contra} type="password" required ></input><br />
                     <input type="submit" className='submit'></input>
                   </div>
                 </animated.form>
@@ -131,13 +131,13 @@ function LogIn(props) {
                   <div id='registerform'>
                     <h2>Sign up Ingrese sus datos</h2>
                     <label>User </label>
-                    <input name="Nombre" type="text" onChange={handleInputChange} value={User.Nombre}></input><br />
+                    <input name="Nombre" type="text" onChange={handleInputChange} value={User.Nombre} required ></input><br />
                     <label>Password </label>
-                    <input name="Contra" type="password" onChange={handleInputChange} value={User.Password} ></input><br />
+                    <input name="Contra" type="password" onChange={handleInputChange} value={User.Password} required ></input><br />
                     <label>Email </label>
-                    <input name="Email" type="email" onChange={handleInputChange} value={User.Email}></input><br />
+                    <input name="Email" type="email" onChange={handleInputChange} value={User.Email} required></input><br />
                     <label>Fecha de nacimiento </label>
-                    <input type="date"></input>
+                    <input type="date"name="FechaNacimiento" onChange={handleInputChange} value={User.FechaNacimiento}required ></input>
                     <input type="submit" className='submit'></input><br />
                   </div>
                 </animated.form>

@@ -3,6 +3,7 @@
     padding-left: 2%;
 }
 
+
 @font-face {
     font-family: 'IceFont';
   src: local("IceMirrorInWinterKei-d99LV"),
@@ -74,7 +75,7 @@
 
 .MadeComent{
     padding-top: 2%;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-bottom: 5%;
     height: auto;
 }
@@ -86,6 +87,11 @@
     border-style: none;
     background-color: #071e26;
     color: #ade8f4 ;
+}
+
+.ButtonEtiquetas{
+    color: #227e91 ;
+    font-family: 'IceFont';
 }
 
 .MadeComent input[type=Submit]{
