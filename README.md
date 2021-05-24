@@ -9,20 +9,18 @@
 
 _Frost Art es una página web destinada a artistas, donde podrán publicar imágenes de sus piezas de arte ya sean físicas o digitales con el objetivo de compartir y dar a conocer sus obras con otros artistas o personas interesadas en el arte._
 
-## Available Scripts
-
-In the project directory, you can run:
+## Instrucciones de Instalación
+Abrir la consola de comandos de windows dentro de la carpeta donde esta instalado el FrontEnd (C\:Users\usuario\Documents\GitHub\frost_art_app_interface)
+Ejecutar los siguientes comandos en su orden de aparicion.
 
 ### `npm install`
-instalara todas librerias necesarias para que el front end funcione correctamente
-se debera de correr si es la primera vez que usara la aplicacion
+Instalara todas librerias necesarias para que el front end funcione correctamente,
+se deberá de correr si es la primera vez que usara la aplicacion.
 
 ### `npm start`
 
-correra la aplicacion en modo developer para que pueda probarla 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Correrá la aplicacion en modo developer para que pueda probarla 
+Runs the app in the development mode.
+Se abrirá en [http://localhost:3000](http://localhost:3000).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
