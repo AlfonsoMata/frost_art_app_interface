@@ -16,8 +16,6 @@ export const LoginUser = async (nombre, contra) => {
         console.log({ nombre });
         console.log(contra);
         const response = await axios.post(`/Usuarios/LogIn`, nombre, { params: { nombre, contra } })
-        //const response = await axios.post("/Usuarios/LogIn?nombre=Sebastian&contra=WinterSoldier")
-        //console.log(response);
         console.log("info chafa: " + response.data);
         if (response.data.length > 0) {
             const AutoMe = {
@@ -69,7 +67,6 @@ export const UpdateProfile = async (NewInfo,Id,Urlvideo)=>{
         }
         const response = await axios.put('/Usuarios/ActualizarUsuario/'+Id,InfoWithURl)
         console.log('info a enviar',response);
-        //console.log(response);
     } catch (error){
         console.error(error);
         return error;
@@ -120,8 +117,9 @@ export const FollowUser = async (FollowInfo)=>{
 
 export const GetFollowers = async (UserId) => {
     try {
-        const response = await axios.get('/Usuarios/GetUsuarioPerfil/' + UserId)
-        return response.data.seguidos;
+        const response = await axios.get('/UsuariosSeguidos/GetSeguidoresUsuario?idusuario=' + UserId)
+        console.log("Respues a: "+response.data);
+        return response.data;
     } catch (error) {
         console.error(error);
         return error;

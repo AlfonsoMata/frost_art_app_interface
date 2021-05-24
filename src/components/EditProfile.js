@@ -5,6 +5,7 @@ import firebase from './FireBase';
 import {UpdateProfile} from '../api/UsersApi';
 import './EditProfile.css';
 import Profile from './Profile';
+import { Link } from 'react-router-dom';
 
 const ProfileEdit = (props) => {
 
@@ -13,8 +14,6 @@ const ProfileEdit = (props) => {
      
         async function fetchData() {
             
-        
-            //console.log("Cookie chida: " + array.data[0].nombre);
         }
         fetchData();
 
@@ -40,18 +39,17 @@ const ProfileEdit = (props) => {
 
     const handleOnChange = (e) => {
       const file = e.target.files[0]
-      const storageRef = firebase.storage().ref(`pictures/${file.name}`) // aqui lo que hace es que sube la foto
-      const task = storageRef.put(file) // la guarda como en un storage local idk
+      const storageRef = firebase.storage().ref(`pictures/${file.name}`)
+      const task = storageRef.put(file)
   
       task.on('state_changed', (snapshot) => {
         let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         SetUploadValue(percentage)
       }, (error) => {
         SetUpErrorMesage(`Ah ocurrido un error${error.message}`);
-        //message: `Ha ocurrido un error: `
       }, async () => {
         SetUpErrorMesage("archivoSubido");
-        SetUpPicture(await task.snapshot.ref.getDownloadURL()) // y aqui me lo devuelve aja entonces eso es lo que tengo que guardar en la base de datos 
+        SetUpPicture(await task.snapshot.ref.getDownloadURL())
       })
     }
 
@@ -59,7 +57,7 @@ const ProfileEdit = (props) => {
         e.preventDefault();
         console.log(NewInfoProfile);
         await UpdateProfile(NewInfoProfile,ProfileUser.data[0].id,picture);
-     
+     LogOut();
       };
 
       const handleInputChange = (e) => {
@@ -71,23 +69,28 @@ const ProfileEdit = (props) => {
         });
       };
 
+      function LogOut() {
+        Cookies.remove("infoUser");
+        Cookies.remove("logged");
+        window.location.href = "/Login";
+      }
    
 
     return (
         <div className="EditBody">
             <form onSubmit={PostSubmit}>
-                <h2>Foto de Perfil</h2>
+                <h2 id="PageName">Foto de Perfil</h2>
                 <img className="EditFoto" src={picture}></img>
                 <progress className="PictureProgress" value={uploadValue} max='100'></progress>
                 <input type='file' name="PhotoSelector" onChange={handleOnChange.bind(this)} />
                 {errorMesage}
-                <h2>Nombre de usuario</h2>
+                <h2 id="PageName">Nombre de usuario</h2>
                 <input type="Text" name="Nombre"  onChange={handleInputChange} value={NewInfoProfile.Nombre} defaultValue={ProfileUser.data[0].nombre} required ></input>
-                <h2>Contra</h2>
+                <h2 id="PageName">Contra</h2>
                 <input type="Password" name="Contra"  onChange={handleInputChange} value={NewInfoProfile.Contra} defaultValue={ProfileUser.data[0].contra} required></input>
-                <h2>Email</h2>
+                <h2 id="PageName">Email</h2>
                 <input type="Email" name ="Email" onChange={handleInputChange} value={NewInfoProfile.Email} defaultValue={ProfileUser.data[0].email} required ></input>
-                <h2>Descripcion</h2>
+                <h2 id="PageName">Descripcion</h2>
                 <textarea name="Descripcion" onChange={handleInputChange} value={NewInfoProfile.Descripcion} defaultValue={ProfileUser.data[0].descripcion}></textarea><br></br>
                 <input type="submit" value="EditarPerfil"></input>
             </form>

@@ -58,9 +58,9 @@ url(Ice-Mirror-in-Winter-Kei.ttf.woff);
   width: 3%;
   padding-top: 3%;
   background-color: #1e4459;
-  height: 100%; /* Full height */
-  position: fixed; /* Make it stick, even on scroll */
-  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+  height: 100%;
+  position: fixed; 
+  overflow: auto; 
 }
 
 @media (prefers-reduced-motion: no-preference) {

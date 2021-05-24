@@ -52,7 +52,7 @@ function Comment({items}) {
       <Paper className={classes.paper}>
         <Grid container wrap="nowrap" spacing={2}>
           <Grid item>
-            <Avatar className={classes.large} src="https://i.pinimg.com/564x/c8/58/ad/c858ad665a8ceceaafe22d58690fce1e.jpg"></Avatar>
+            <Avatar className={classes.large} src={perfil.fotoPerfil}></Avatar>
           </Grid>
           <Grid item xs>
             <h2 className="TextEdit">{perfil.nombre}</h2>
@@ -61,14 +61,6 @@ function Comment({items}) {
         </Grid>
       </Paper>
     </div>
-
-    // <div className ="CommentDiv">
-    //     <div className="CommentBanner">
-    //         <img  src="https://i.pinimg.com/564x/c8/58/ad/c858ad665a8ceceaafe22d58690fce1e.jpg"/>
-    //         <h2 className="TextEdit">Sebastian Stan</h2>
-    //         <h2 >hola soy un comentario de sebastian stan</h2>
-    //     </div>
-    // </div>
   );
 }
 

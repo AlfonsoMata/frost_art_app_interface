@@ -4,11 +4,7 @@ import Cookies from 'js-cookie';
 import { useHistory } from "react-router-dom";
 import './App.css';
 import WebLogo from './FrostWolf.png';
-// import ClassComponent from './components/ClassComponent';
-// import FunctionalComponent from './components/FunctionalComponent';
-// import ImageGrid from './components/GridImageComponent';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-// import Button from './components/ButtonComponent'
 import HomePage from './components/Home';
 import Post from './components/Post';
 import LogIn from './components/LogIn';
@@ -37,14 +33,13 @@ import TagsPage from './components/TagsPage';
 
 
 
-//Font Awesome
-//import ReactDOM from 'react-dom'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars, faEllipsisH, faBell, faUser, faEye, faCompass, faHistory, faFire, faPalette, faBullhorn } from '@fortawesome/free-solid-svg-icons'
 import { InputBase, ListItemText } from '@material-ui/core';
 import EditPost from './components/EditPost';
 library.add(faBars, faEllipsisH, faBell, faUser, faEye, faCompass, faHistory, faFire, faPalette, faBullhorn)
-//
+
 
 const drawerWidth = 240;
 
@@ -207,9 +202,7 @@ function App() {
         </Drawer>
 
         <div>
-          {/* {items.map(item=>(
-          <h1 key ={item.itemid}>{item.name}</h1>
-        ))} */}
+          {}
         </div>
 
 

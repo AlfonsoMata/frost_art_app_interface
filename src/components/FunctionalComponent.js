@@ -11,7 +11,7 @@ export const FunctionalComponent = (props) => {
     return (
         <div>
             <p>Este es un Functional PITO   component</p>
-            <input type ="password" name ="password" //value={text} 
+            <input type ="password" name ="password"
             onChange={handleChange}/>
             <p>{text}</p>
             </div>
