@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# FrostArt
+ ## Integrantes 
+ * **1800628 José Arturo Rodríguez Cavazos**
+ * **1803321 Alfonso Mata de Anda**
+ * **1800719 Pablo Andrés Mariles Feregrino**
+ * **1838420 Rene Miramontes Hernandez**
+ 
+ ## Descripción
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+_Frost Art es una página web destinada a artistas, donde podrán publicar imágenes de sus piezas de arte ya sean físicas o digitales con el objetivo de compartir y dar a conocer sus obras con otros artistas o personas interesadas en el arte._
 
 ## Available Scripts
 
