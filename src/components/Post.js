@@ -11,7 +11,7 @@ import { AddComent } from '../api/ComentariosApi.js';
 import { GetComments } from '../api/ComentariosApi.js';
 import { DelComments } from '../api/ComentariosApi.js';
 import { GetPost, } from '../api/PublicacionApi';
-import { AddLike } from '../api/LikesApi.js';
+import { AddLike, GetLikes } from '../api/LikesApi.js';
 import {FollowUser} from '../api/UsersApi.js'
 import Box from '@material-ui/core/Box';
 import { CreateFavorite, DeleteFavorite } from '../api/FavoriteApi.js';
@@ -61,6 +61,8 @@ function Post({ match }) {
     idUsuarioSeguido: ProfileUser.data[0].id,
   })
 
+  const [PublicacionLikes, setPubLikes] = useState(0);
+
 
   useEffect(async () => {
     async function fetchData() {
@@ -73,6 +75,9 @@ function Post({ match }) {
       setPictureProfile(infoRest[0].fotoPerfil);
       SetTemaID(infoRest[0].idTema)
       setIdUsuario(infoRest[0].idUsuario)
+
+      const likesResp = await GetLikes(match.params.id);
+      setPubLikes(likesResp.length);
 
       console.log("temaid",Temaid);
       const FavTemJson ={
@@ -103,6 +108,8 @@ function Post({ match }) {
       SetFavInfo(FavTemJson);
       setComments(CommentsRes);
       console.log("Info"+infoRest);
+
+      
     }
     fetchData();
   }, [match.params.id]);
@@ -124,6 +131,7 @@ function Post({ match }) {
 
   const darLike = async (e) => {
     await AddLike(Like);
+    window.location.reload();
   }
 
  
@@ -133,6 +141,10 @@ function Post({ match }) {
 
   const DarFollow = async () => {
     await FollowUser(FollowInfo)
+  }
+
+  function recargar(){
+    window.location.reload();
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -177,8 +189,7 @@ function Post({ match }) {
               <ImageView props={match.params.id}></ImageView>
             </Box>
           </Paper>
-          {/*<img className="PostImage" src={item.image} ></img>
-          <img src="https://i.pinimg.com/564x/d2/d8/96/d2d8963344210762f786cf5acbf5f2de.jpg" /> */}
+          {}
           <Divider variant="middle" />
           <br></br>
 
@@ -200,8 +211,9 @@ function Post({ match }) {
             }
               {!JSON.parse(Cookies.get('logged')) ?
               <button>  </button>
-              :
-              <button className="TextEdit" onClick={darLike}> Like </button>
+              :(
+              <button className="TextEdit" onClick={darLike}> Like {PublicacionLikes}</button>
+              )
             }
               {!JSON.parse(Cookies.get('logged')) ?
               <button>  </button>
@@ -225,13 +237,7 @@ function Post({ match }) {
 
 
           </Grid>
-          {/* <img  src="https://i.pinimg.com/564x/e9/24/83/e9248337a185fad3284b43c20e385b03.jpg"/>
-                <h1 >Crowley</h1>
-                <h2>Arte bien chido apoco no</h2>
-                <button>Follow</button>
-                <button>Like</button>
-                <h3>Tags</h3>
-                <Link><label>Textil</label></Link> */}
+          {}
 
         </Grid>
         <Grid item xs={12} sm={3}>
@@ -255,8 +261,8 @@ function Post({ match }) {
               :
               <div className="MadeComent">
               <form id="addCommentForm" onSubmit={UserSubmit}>
-                <input name="Texto" type="text" onChange={handleInputChange}></input>
-                <input type='Submit'></input>
+                <input name="Texto" type="text" onChange={handleInputChange} required></input>
+                <input type='Submit' value="enviar" onClick={recargar}></input>
               </form>
             </div>
             }

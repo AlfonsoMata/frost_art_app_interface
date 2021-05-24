@@ -41,18 +41,17 @@ const EditPost = ({match}) => {
   const [picture, SetUpPicture] = useState("https://i.stack.imgur.com/vk7gF.png");
   const handleOnChange = (e) => {
     const file = e.target.files[0]
-    const storageRef = firebase.storage().ref(`pictures/${file.name}`) // aqui lo que hace es que sube la foto
-    const task = storageRef.put(file) // la guarda como en un storage local idk
+    const storageRef = firebase.storage().ref(`pictures/${file.name}`)
+    const task = storageRef.put(file)
 
     task.on('state_changed', (snapshot) => {
       let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       SetUploadValue(percentage)
     }, (error) => {
       SetUpErrorMesage(`Ah ocurrido un error${error.message}`);
-      //message: `Ha ocurrido un error: `
     }, async () => {
       SetUpErrorMesage("archivoSubido");
-      SetUpPicture(await task.snapshot.ref.getDownloadURL()) // y aqui me lo devuelve aja entonces eso es lo que tengo que guardar en la base de datos 
+      SetUpPicture(await task.snapshot.ref.getDownloadURL())
     })
   }
 
@@ -121,6 +120,7 @@ const EditPost = ({match}) => {
     e.preventDefault();
     const TagsArray = Tags.Nombre.split(',')
     await UpdatePost(Post,picture,TagsArray);
+    window.location.href = "/Profile";
   };
 
   const handleInputChange = (e) => {
@@ -189,17 +189,17 @@ const EditPost = ({match}) => {
      
     
        
-        <h2 className="EditText"> add a title</h2>
+        <h2 className="EditText"> Add a title</h2>
         <input className="TextTitleInput" type="Text" name="Titulo" onChange={handleInputChange} value={Post.Titulo}  ></input>
         <h2 className="EditText" >Add a description</h2>
         <textarea name="Descripcion" className="TextTitleInput" onChange={handleInputChange} value={Post.Descripcion} rows="5" cols="80"></textarea>
-        <h2 className="EditText" >Seleccione un Tema</h2>
+        <h2 className="EditText" >Select a theme</h2>
         <select name='IdTema' onChange={handleInputChange} value={Post.IdTema}>
           {Temas.map((item, index) => (
             <option key={index} value={item.id} >{item.nombre}</option>
           ))}
         </select> <br></br>
-        <h2 className="EditText" >Add less than 20 Tags</h2>
+        <h2 className="EditText" >Add less than 20 Tags, separate them by comas</h2>
         <textarea className="TextTitleInput" rows="5" cols="80" onChange={handleTagsChange} name="Nombre" value={Tags.Nombre}></textarea><br></br>
         <input type='Submit' value="UpdatePost"></input>
       </form>

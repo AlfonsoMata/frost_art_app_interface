@@ -77,16 +77,7 @@ function Profile ({match}){
           <Link to="/EditProfile"> Edit Profile</Link>
           </div>
           <SimpleTabs></SimpleTabs>
-          {/* <div className={classes.root2}>
-          <AppBar className={classes.AppBar}>
-          <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-          </AppBar>
-          </div> */}
+          {}
       
         </div>
       
@@ -157,7 +148,7 @@ export  function SimpleTabs() {
         const myPostRest = await GetUserPosts(ProfileUser.data[0].id);
         const likeres = await GetAllLikes(ProfileUser.data[0].id);
         const FollowersRest = await GetFollowers(ProfileUser.data[0].id)
-        setMisFollowers(FollowersRest.length-1);
+        setMisFollowers(FollowersRest[0].seguidores-1);
         setFavPost(FavRes);
         setMyPosts(myPostRest);
         setNumPost(myPostRest.length);
@@ -249,11 +240,7 @@ export  function SimpleTabs() {
              </GridListTile>
                
                   ))}
-                    {/* {menuItems.map(item => (
-                        <GridListTile key={item.imageUrl} cols={1 || 2}>
-                           <Link key={item.imageUrl} to={`/Post/${1}`}><img className="ImageShow" src={item.imageUrl} /></Link>
-                        </GridListTile>
-                    ))} */}
+                    {}
 
 
                 </GridList>

@@ -41,8 +41,6 @@ function LogIn(props) {
 
   const LogInSubmit = async (e) => {
     e.preventDefault();
-    //console.log(UserTry);
-    //LoginUser(UserTry.nombre,UserTry.contra);
     const LoginRes = await LoginUser(UserTry.nombre, UserTry.contra);
     if (!LoginRes.data[0])
       alert("No");
@@ -51,13 +49,6 @@ function LogIn(props) {
       setCookie('logged', true, { path: '/' });
       history.push("/");
     }
-
-
-
-    //const UserRes = await LoginUser(UserTry.nombre,UserTry.contra);
-    //SetUser(UserRes);
-    //console.log(User);
-    //console.log(User.Nombre);
   };
 
   const [SingUpFormStatus, setSingUpStatus] = useState(false);

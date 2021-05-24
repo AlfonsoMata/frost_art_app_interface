@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react';
 import {GetMostLikedPosts} from '../api/PublicacionApi'
+import './Popular.css'
 import ImageShow from './ImageView'
 import Masonry from 'react-masonry-css';
 import { Link } from 'react-router-dom';
@@ -22,8 +23,8 @@ function Popular() {
     }
 
     return(
-        <div>
-        <h1>Popular </h1>
+        <div id="popularBody">
+        <h1>Hot Topics </h1>
         <Masonry breakpointCols={breakpoints}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column">

@@ -223,13 +223,3 @@ export const DeletePost = async(idPublicacion) =>{
         return error
     }
 }
-
-// export const GetPost = async (PostInfo) =>{
-//     try{
-//      const response = await axios.post("/Publicaciones/CrearPublicacion",PostInfo)
-//      console.log("PostCreado" , response);
-//     }catch (error){
-//         console.error(error);
-//         return error;
-//     }
-// }
